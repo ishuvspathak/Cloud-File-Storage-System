@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C82FB" />
+      <stop offset="100%" stop-color="#0F62FE" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+  </defs>
+  <!-- Cloud outer shape -->
+  <path d="M 25 65 A 18 18 0 0 1 33.5 31.5 A 24 24 0 0 1 72.5 35.5 A 18 18 0 0 1 75 65 Z" fill="url(#cloudGrad)" />
+  <!-- Folder outline overlay inside -->
+  <path d="M 38 46 H 45 L 48 50 H 60 C 62 50 62 51 62 53 V 63 C 62 65 61 65 59 65 H 38 C 36 65 36 64 36 62 V 49 C 36 47 37 46 38 46 Z" fill="#FFFFFF" opacity="0.95" />
+  <!-- Small file detail representing digital data -->
+  <rect x="42" y="54" width="12" height="2" rx="1" fill="url(#accentGrad)" />
+  <rect x="42" y="58" width="8" height="2" rx="1" fill="url(#accentGrad)" />
+</svg>

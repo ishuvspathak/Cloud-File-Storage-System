@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud File Storage System - Dashboard</title>
+  <!-- Modern clean typography using Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top-level main application layout -->
+  <div class="app-container">
+
+    <!-- 1. Header (Top Bar with student details and search mockup) -->
+    <header class="app-header">
+      <div class="header-left">
+        <img class="app-logo" src="assets/logo.svg" alt="Cloud File Storage System Logo">
+        <div class="logo-text">
+          <h1>Cloud File Storage System</h1>
+          <p class="tagline">Secure. Store. Access Anywhere.</p>
+        </div>
+      </div>
+      
+      <div class="header-center">
+        <!-- Mock Search Bar to make it look like a SaaS tool -->
+        <div class="search-bar">
+          <span class="search-icon">&#128269;</span>
+          <input type="text" placeholder="Search files, folders, backups..." aria-label="Search">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Student Identity Badge -->
+        <div class="student-badge">
+          <span class="avatar-placeholder">IP</span>
+          <div class="student-info">
+            <h6 class="student-name">Ishu Pathak</h6>
+            <p class="reg-number">Reg: <strong>2303717620521021</strong></p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      
+      <!-- 2. Navigation Bar (Sidebar Navigation) -->
+      <nav class="app-sidebar">
+        <div class="sidebar-section-label">Navigation Menu</div>
+        <ul class="nav-menu">
+          <li>
+            <a href="#welcome" class="nav-item active">
+              <span class="nav-icon">&#127968;</span> Home
+            </a>
+          </li>
+          <li>
+            <a href="#statistics" class="nav-item">
+              <span class="nav-icon">&#128202;</span> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#services" class="nav-item">
+              <span class="nav-icon">&#128188;</span> Services
+            </a>
+          </li>
+          <li>
+            <a href="#modules" class="nav-item">
+              <span class="nav-icon">&#128196;</span> Reports
+            </a>
+          </li>
+          <li>
+            <a href="#welcome" class="nav-item">
+              <span class="nav-icon">&#8594;</span> About
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="nav-item">
+              <span class="nav-icon">&#128222;</span> Contact
+            </a>
+          </li>
+          <li class="nav-separator"><hr></li>
+          <li>
+            <a href="#" class="nav-item logout-btn">
+              <span class="nav-icon">&#128275;</span> Logout
+            </a>
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <span class="system-version">v1.4.0 Stable</span>
+          <span class="encryption-badge">256-bit AES</span>
+        </div>
+      </nav>
+
+      <!-- Main Dashboard Content Grid -->
+      <main class="app-content">
+
+        <!-- 7. Latest Updates (Styled Marquee Ticker) -->
+        <section class="ticker-section" aria-label="Latest Announcements">
+          <div class="ticker-label">
+            <span class="ticker-badge">&#128227;</span>
+            <strong>LATEST UPDATES:</strong>
+          </div>
+          <div class="ticker-container">
+            <marquee behavior="scroll" direction="left" scrollamount="4">
+              Welcome to Cloud File Storage System &bull; 
+              Weekly Backup Completed Successfully &bull; 
+              Storage Dashboard Updated &bull; 
+              New Secure Sharing Feature Coming Soon &bull; 
+              Scheduled Maintenance Every Sunday &bull; 
+              Please register your account to access advanced security features.
+            </marquee>
+          </div>
+        </section>
+
+        <!-- 3. Welcome Section -->
+        <section id="welcome" class="dashboard-section welcome-card">
+          <div class="welcome-header">
+            <h2>Welcome to Cloud File Storage System Dashboard</h2>
+            <p class="section-subtitle">Manage your cloud infrastructure, monitor user activities, and secure digital assets.</p>
+          </div>
+          
+          <div class="welcome-grid">
+            <article class="welcome-intro-block">
+              <h3>Project Description</h3>
+              <p>
+                The <strong>Cloud File Storage System</strong> enables users to securely upload, organize, manage and share files through cloud technology. It provides a secure and efficient platform for storing digital documents and accessing them anytime from anywhere.
+              </p>
+              <p>
+                Equipped with cutting-edge <em>redundancy mechanism</em> and <em>multi-tenant isolation</em>, it guarantees 99.99% system availability.
+              </p>
+            </article>
+
+            <div class="welcome-vision-mission">
+              <article class="vision-card">
+                <div class="card-icon-wrapper">&#128065;</div>
+                <div>
+                  <h3>Vision</h3>
+                  <p>To provide secure, reliable and accessible cloud storage solutions for individuals and organizations.</p>
+                </div>
+              </article>
+
+              <article class="mission-card">
+                <div class="card-icon-wrapper">&#127919;</div>
+                <div>
+                  <h3>Mission</h3>
+                  <p>To simplify digital file management by providing secure storage, easy accessibility and seamless collaboration.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- 4. Dashboard Statistics -->
+        <section id="statistics" class="dashboard-section">
+          <div class="section-header">
+            <h2>Dashboard Statistics</h2>
+            <p class="section-subtitle">Real-time system state, traffic indicators, and transaction logs.</p>
+          </div>
+          
+          <div class="stats-grid">
+            <!-- Total Users Card -->
+            <article class="stat-card">
+              <div class="stat-header">
+                <span class="stat-icon users-icon">&#128101;</span>
+                <h4>Total Users</h4>
+              </div>
+              <div class="stat-body">
+                <span class="stat-value">12,540</span>
+                <span class="stat-trend trend-up">&#8599; +12% this month</span>
+              </div>
+            </article>
+
+            <!-- Active Users Card -->
+            <article class="stat-card">
+              <div class="stat-header">
+                <span class="stat-icon active-icon">&#128104;&#8205;&#128187;</span>
+                <h4>Active Users</h4>
+              </div>
+              <div class="stat-body">
+                <span class="stat-value">8,245</span>
+                <span class="stat-trend trend-up">&#8599; 65.7% activity rate</span>
+              </div>
+            </article>
+
+            <!-- Revenue Card -->
+            <article class="stat-card">
+              <div class="stat-header">
+                <span class="stat-icon revenue-icon">&#8377;</span>
+                <h4>Revenue</h4>
+              </div>
+              <div class="stat-body">
+                <span class="stat-value">&#8377;4,75,000</span>
+                <span class="stat-trend trend-up">&#8599; +8.4% MRR</span>
+              </div>
+            </article>
+
+            <!-- Transactions Card -->
+            <article class="stat-card">
+              <div class="stat-header">
+                <span class="stat-icon trans-icon">&#128179;</span>
+                <h4>Transactions</h4>
+              </div>
+              <div class="stat-body">
+                <span class="stat-value">15,320</span>
+                <span class="stat-trend trend-up">&#8599; 99.9% success rate</span>
+              </div>
+            </article>
+
+            <!-- Notifications Card -->
+            <article class="stat-card">
+              <div class="stat-header">
+                <span class="stat-icon notify-icon">&#128276;</span>
+                <h4>Notifications</h4>
+              </div>
+              <div class="stat-body">
+                <span class="stat-value">18</span>
+                <span class="stat-trend trend-down">&#8600; 3 critical warnings</span>
+              </div>
+            </article>
+
+            <!-- Pending Tasks Card -->
+            <article class="stat-card warning-stat">
+              <div class="stat-header">
+                <span class="stat-icon tasks-icon">&#128221;</span>
+                <h4>Pending Tasks</h4>
+              </div>
+              <div class="stat-body">
+                <span class="stat-value">6</span>
+                <span class="stat-trend trend-neutral">Requires attention</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- 5. Features Section & 6. Services Section (Side-by-side or stacked grid) -->
+        <div class="lists-container-grid">
+          
+          <!-- Features (Unordered List) -->
+          <section id="features" class="dashboard-section list-card-wrapper">
+            <div class="list-card-header">
+              <span class="list-title-icon">&#11088;</span>
+              <h2>Core System Features</h2>
+            </div>
+            <p class="list-card-desc">Comprehensive system abilities integrated to maximize performance.</p>
+            <ul class="features-list">
+              <li><strong>Secure Login</strong> - Multi-factor identity validation</li>
+              <li><strong>File Upload</strong> - High speed chunked uploads</li>
+              <li><strong>File Download</strong> - Parallel streams with resume capability</li>
+              <li><strong>Folder Management</strong> - Nested structural categorization</li>
+              <li><strong>File Sharing</strong> - Password-protected time-limited links</li>
+              <li><strong>Advanced Search</strong> - Full-text metadata indexing</li>
+              <li><strong>Storage Analytics</strong> - Storage usage details and forecasting</li>
+              <li><strong>Activity Logs</strong> - Immutable history audits for events</li>
+              <li><strong>User Profile Management</strong> - Custom preferences and settings</li>
+              <li><strong>Data Encryption</strong> - End-to-end client-side encryption</li>
+            </ul>
+          </section>
+
+          <!-- Services (Ordered List) -->
+          <section id="services" class="dashboard-section list-card-wrapper">
+            <div class="list-card-header">
+              <span class="list-title-icon">&#128188;</span>
+              <h2>Services Provided</h2>
+            </div>
+            <p class="list-card-desc">Offered service level agreements tailored for corporate infrastructure.</p>
+            <ol class="services-list">
+              <li><strong>Cloud Storage</strong> - Highly redundant object storage servers</li>
+              <li><strong>Secure File Sharing</strong> - Encrypted pathways for seamless sharing</li>
+              <li><strong>Backup & Recovery</strong> - Automated continuous snapshots and rollbacks</li>
+              <li><strong>Multi-device Access</strong> - Syncing between mobile, desktop, and web</li>
+              <li><strong>Storage Monitoring</strong> - Real-time volume capacity notifications</li>
+              <li><strong>User Management</strong> - Granular RBAC (Role-Based Access Control)</li>
+              <li><strong>Security Management</strong> - Threat detection and intrusion counter-defense</li>
+              <li><strong>Customer Support</strong> - 24/7 dedicated support engineers</li>
+            </ol>
+          </section>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- 9. Application Modules Table -->
+        <section id="modules" class="dashboard-section">
+          <div class="section-header">
+            <h2>Application Modules</h2>
+            <p class="section-subtitle">An overview of system-level modules, access points, and processing layers.</p>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="modules-table">
+              <thead>
+                <tr>
+                  <th scope="col">Module ID</th>
+                  <th scope="col">Module Name</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>101</strong></td>
+                  <td><span class="module-badge auth-badge">Authentication</span></td>
+                  <td>User Login and Registration</td>
+                </tr>
+                <tr>
+                  <td><strong>102</strong></td>
+                  <td><span class="module-badge upload-badge">File Upload</span></td>
+                  <td>Upload Files Securely</td>
+                </tr>
+                <tr>
+                  <td><strong>103</strong></td>
+                  <td><span class="module-badge download-badge">File Download</span></td>
+                  <td>Download Stored Files</td>
+                </tr>
+                <tr>
+                  <td><strong>104</strong></td>
+                  <td><span class="module-badge folder-badge">Folder Management</span></td>
+                  <td>Organize Files into Folders</td>
+                </tr>
+                <tr>
+                  <td><strong>105</strong></td>
+                  <td><span class="module-badge share-badge">File Sharing</span></td>
+                  <td>Share Files Securely</td>
+                </tr>
+                <tr>
+                  <td><strong>106</strong></td>
+                  <td><span class="module-badge search-badge">Search System</span></td>
+                  <td>Search Files Quickly</td>
+                </tr>
+                <tr>
+                  <td><strong>107</strong></td>
+                  <td><span class="module-badge notify-badge">Notifications</span></td>
+                  <td>User Alerts and Updates</td>
+                </tr>
+                <tr>
+                  <td><strong>108</strong></td>
+                  <td><span class="module-badge analytics-badge">Storage Analytics</span></td>
+                  <td>Storage Usage Dashboard</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Bottom Grid: Registration & Contact Info -->
+        <div class="form-contact-grid">
+
+          <!-- 8. Registration Form -->
+          <section id="registration" class="dashboard-section form-card">
+            <div class="form-header">
+              <h2>Registration Portal</h2>
+              <p>Create a storage account and receive 15 GB free encrypted space.</p>
+            </div>
+            
+            <form action="#" method="POST" class="register-form">
+              <div class="form-row-two">
+                <div class="form-group">
+                  <label for="reg-name">Full Name</label>
+                  <input type="text" id="reg-name" name="name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="reg-email">Email Address</label>
+                  <input type="email" id="reg-email" name="email" placeholder="name@example.com" required>
+                </div>
+              </div>
+
+              <div class="form-row-two">
+                <div class="form-group">
+                  <label for="reg-phone">Phone Number</label>
+                  <input type="tel" id="reg-phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="reg-password">Password</label>
+                  <input type="password" id="reg-password" name="password" placeholder="Min. 8 characters" required>
+                </div>
+              </div>
+
+              <div class="form-row-two">
+                <div class="form-group">
+                  <label>Gender</label>
+                  <div class="radio-group-container">
+                    <label class="radio-label">
+                      <input type="radio" name="gender" value="male" checked>
+                      <span>Male</span>
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" name="gender" value="female">
+                      <span>Female</span>
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" name="gender" value="other">
+                      <span>Other</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="reg-dob">Date of Birth</label>
+                  <input type="date" id="reg-dob" name="dob" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="reg-address">Physical Address</label>
+                <textarea id="reg-address" name="address" rows="3" placeholder="Enter street, city, state, postal code..." required></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">Register Account</button>
+                <button type="reset" class="btn-secondary">Reset Fields</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- 10. Contact Information -->
+          <section id="contact" class="dashboard-section contact-card">
+            <div class="contact-header">
+              <h2>Contact Information</h2>
+              <p>Need support or custom integrations? Get in touch with our team.</p>
+            </div>
+            
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="contact-icon">&#9993;</span>
+                <div>
+                  <h5>Email Support</h5>
+                  <p><a href="mailto:ishu.pathak@example.com" class="contact-link">ishu.pathak@example.com</a></p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <span class="contact-icon">&#128222;</span>
+                <div>
+                  <h5>Phone Hotline</h5>
+                  <p><a href="tel:+919876543210" class="contact-link">+91 9876543210</a></p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <span class="contact-icon">&#128205;</span>
+                <div>
+                  <h5>Headquarters</h5>
+                  <p>
+                    Coimbatore Institute of Technology<br>
+                    Coimbatore<br>
+                    Tamil Nadu
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <span class="contact-icon">&#127760;</span>
+                <div>
+                  <h5>Social Connections</h5>
+                  <ul class="social-links-list">
+                    <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a></li>
+                    <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a></li>
+                    <li><a href="mailto:ishu.pathak@example.com" class="social-link">Email</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Decorative quote about data storage -->
+            <div class="contact-quote">
+              <p><em>"Your data security is our ultimate priority. Engineered to scale, protected to shield."</em></p>
+            </div>
+          </section>
+
+        </div>
+
+      </main>
+    </div>
+
+    <!-- 11. Footer -->
+    <footer class="app-footer">
+      <div class="footer-left">
+        <p>&copy; 2026 <strong>Cloud File Storage System</strong>. All rights reserved.</p>
+      </div>
+      <div class="footer-center">
+        <p>Designed by <strong>Ishu Pathak</strong> | Reg: <strong>2303717620521021</strong></p>
+      </div>
+      <div class="footer-right">
+        <p class="footer-institute">Coimbatore Institute of Technology</p>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
