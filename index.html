@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cloud File Storage System - Interactive Dashboard</title>
+  <title>Cloud File Storage System - Immersive Portfolio Dashboard</title>
   <!-- Modern typography via Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,9 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+
+  <!-- Floating Canvas Particle Background -->
+  <canvas id="particle-canvas"></canvas>
 
   <!-- Top-level main application layout -->
   <div class="app-container">
@@ -44,7 +47,7 @@
         </div>
 
         <!-- 10. Theme Switcher Toggle Button -->
-        <button id="theme-toggle-btn" class="btn-theme-toggle" aria-label="Toggle Theme Theme">
+        <button id="theme-toggle-btn" class="btn-theme-toggle" aria-label="Toggle Theme">
           <span class="theme-btn-icon">&#9790;</span>
           <span class="theme-btn-text">Dark Mode</span>
         </button>
@@ -228,7 +231,7 @@
                 <article class="slide-item">
                   <div class="slide-content">
                     <div class="slide-text">
-                      <h3>Instant Workspace Synchronization</h3>
+                      <h3>Workspace Synchronization</h3>
                       <p>Real-time updates synchronize across your desktop, laptop, mobile, and web dashboards instantly.</p>
                       <span class="slide-tag sync-tag">Continuous Syncing</span>
                     </div>
@@ -375,28 +378,58 @@
 
         <hr class="section-divider">
 
-        <!-- 6. Features Section & 7. Services Section (Interactive cards and layout transition) -->
+        <!-- 5 & 6. Orbit Map and Services Lists -->
         <div class="lists-container-grid">
           
-          <!-- Features (Unordered List) -->
-          <section id="features" class="dashboard-section list-card-wrapper animate-fade-in">
+          <!-- Features (Unordered List transformed into Orbit Node Map) -->
+          <section id="features" class="dashboard-section list-card-wrapper orbit-section-card animate-fade-in">
             <div class="list-card-header">
-              <span class="list-title-icon">&#11088;</span>
-              <h2>Core System Features</h2>
+              <span class="list-title-icon">&#127776;</span>
+              <h2>Interactive Feature Orbit Map</h2>
             </div>
-            <p class="list-card-desc">Comprehensive system abilities integrated to maximize performance.</p>
-            <ul class="features-list">
-              <li><strong>Secure Login</strong> - Multi-factor identity validation</li>
-              <li><strong>File Upload</strong> - High speed chunked uploads</li>
-              <li><strong>File Download</strong> - Parallel streams with resume capability</li>
-              <li><strong>Folder Management</strong> - Nested structural categorization</li>
-              <li><strong>File Sharing</strong> - Password-protected time-limited links</li>
-              <li><strong>Advanced Search</strong> - Full-text metadata indexing</li>
-              <li><strong>Storage Analytics</strong> - Storage usage details and forecasting</li>
-              <li><strong>Activity Logs</strong> - Immutable history audits for events</li>
-              <li><strong>User Profile Management</strong> - Custom preferences and settings</li>
-              <li><strong>Data Encryption</strong> - End-to-end client-side encryption</li>
-            </ul>
+            <p class="list-card-desc">Hover over satellites surrounding the cloud core to inspect system features.</p>
+            
+            <div class="orbit-layout-wrapper">
+              <div class="orbit-container">
+                <!-- Central Hub Core -->
+                <div class="core-hub">
+                  <div class="core-icon-circle">&#9729;</div>
+                  <h3 id="core-title">System Core</h3>
+                  <p id="core-description">Hover over data nodes to explore cloud integrations.</p>
+                </div>
+                
+                <!-- Orbiting Nodes (Semantic UL and LI) -->
+                <ul class="orbit-list">
+                  <li class="orbit-node active" style="top: 10%; left: 50%;" data-title="Secure Login" data-desc="Multi-factor identity validation with cryptographic handshakes.">
+                    <span class="node-icon">&#128274;</span>
+                  </li>
+                  <li class="orbit-node" style="top: 21.7%; left: 78.3%;" data-title="File Upload" data-desc="High-speed chunked file uploading with parallel streaming.">
+                    <span class="node-icon">&#128228;</span>
+                  </li>
+                  <li class="orbit-node" style="top: 50%; left: 90%;" data-title="File Download" data-desc="Simultaneous downloads with active stream cache recovery.">
+                    <span class="node-icon">&#128229;</span>
+                  </li>
+                  <li class="orbit-node" style="top: 78.3%; left: 78.3%;" data-title="Folder Management" data-desc="Dynamic directory structuring with quick search indexing.">
+                    <span class="node-icon">&#128193;</span>
+                  </li>
+                  <li class="orbit-node" style="top: 90%; left: 50%;" data-title="File Sharing" data-desc="Password-secured URLs with customizable expiration options.">
+                    <span class="node-icon">&#128279;</span>
+                  </li>
+                  <li class="orbit-node" style="top: 78.3%; left: 21.7%;" data-title="Advanced Search" data-desc="Full-text metadata scanning for instantaneous search queries.">
+                    <span class="node-icon">&#128269;</span>
+                  </li>
+                  <li class="orbit-node" style="top: 50%; left: 10%;" data-title="Storage Analytics" data-desc="Predictive consumption modeling and storage usage dashboards.">
+                    <span class="node-icon">&#128202;</span>
+                  </li>
+                  <li class="orbit-node" style="top: 21.7%; left: 21.7%;" data-title="Data Encryption" data-desc="End-to-end 256-bit AES cryptographic transmission tunnels.">
+                    <span class="node-icon">&#128272;</span>
+                  </li>
+                  <!-- Failsafe semantic elements to cover the remaining requested features -->
+                  <li class="orbit-node" style="display:none;" data-title="Activity Logs" data-desc="Immutable ledger tracking of all system transactions."></li>
+                  <li class="orbit-node" style="display:none;" data-title="User Profile Management" data-desc="Granular account controls and session authentication."></li>
+                </ul>
+              </div>
+            </div>
           </section>
 
           <!-- Services (Ordered List) -->

@@ -1,29 +1,29 @@
 /* ==========================================================================
-   DESIGN SYSTEM & VARIABLES (With Light/Dark Mode)
+   DESIGN SYSTEM & VARIABLES (With Midnight Dark Mode Default)
    ========================================================================== */
 :root {
   /* Brand Color Palette */
-  --primary: hsl(220, 95%, 53%);         /* SaaS Royal Blue */
-  --primary-hover: hsl(220, 95%, 45%);
-  --primary-light: hsl(220, 95%, 96%);   /* For active background states */
-  --primary-glow: rgba(15, 98, 254, 0.15);
+  --primary: hsl(200, 95%, 50%);         /* Electric Cyan */
+  --primary-hover: hsl(195, 95%, 45%);
+  --primary-light: rgba(0, 242, 254, 0.1); 
+  --primary-glow: rgba(0, 242, 254, 0.3);
   
   /* Status Colors */
-  --success: hsl(142, 76%, 36%);
-  --success-light: hsl(142, 76%, 95%);
+  --success: hsl(142, 76%, 45%);
+  --success-light: rgba(16, 185, 129, 0.1);
   --warning: hsl(38, 92%, 50%);
-  --warning-light: hsl(38, 92%, 95%);
+  --warning-light: rgba(245, 158, 11, 0.1);
   --danger: hsl(350, 89%, 60%);
-  --danger-light: hsl(350, 89%, 96%);
+  --danger-light: rgba(239, 68, 68, 0.1);
 
-  /* Neutrals (Light Mode Defaults) */
-  --white: #ffffff;
-  --bg-app: hsl(210, 40%, 97%);          /* Slate-50 app canvas */
-  --bg-card: #ffffff;
-  --text-main: hsl(220, 40%, 12%);       /* Slate-900 text */
-  --text-muted: hsl(215, 20%, 45%);      /* Slate-500 muted text */
-  --border-light: hsl(214, 32%, 91%);    /* Slate-200 border */
-  --border-focus: hsl(220, 95%, 65%);
+  /* Midnight Dark Mode (Default) Settings */
+  --white: hsl(222, 25%, 10%);          /* Dark Slate frosted card */
+  --bg-app: hsl(222, 47%, 6%);           /* Space Canvas base */
+  --bg-card: rgba(15, 23, 42, 0.65);     /* Glassmorphism card back */
+  --text-main: hsl(210, 40%, 98%);       /* High-contrast off-white */
+  --text-muted: hsl(215, 20%, 65%);      /* Faint grey */
+  --border-light: rgba(255, 255, 255, 0.08); /* Frosted border */
+  --border-focus: hsl(190, 90%, 55%);
 
   /* Layout Constants */
   --sidebar-width: 260px;
@@ -32,36 +32,40 @@
   /* Typography */
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* Elevation (Shadows) */
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
-  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 16px -6px rgba(15, 23, 42, 0.08);
+  /* Elevation & Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 15px 45px rgba(0, 0, 0, 0.4);
 
   /* Borders & Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
 
   /* Transition Settings */
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* 10. DARK THEME VARIABLE OVERRIDES */
-body.dark-theme {
-  --bg-app: hsl(220, 40%, 8%);         /* Dark deep blue-gray background */
-  --white: hsl(220, 30%, 12%);          /* Dark card backgrounds */
-  --bg-card: hsl(220, 30%, 12%);
-  --text-main: hsl(210, 40%, 98%);      /* Off-white readable text */
-  --text-muted: hsl(215, 20%, 65%);     /* Muted grey */
-  --border-light: hsl(220, 20%, 20%);   /* Subtle dark mode borders */
-  --primary-light: hsl(220, 95%, 15%);  /* Deep dark blue highlight */
-  --primary-glow: rgba(59, 130, 246, 0.25);
-  
-  /* Status adjustments for dark mode */
-  --success-light: hsl(142, 76%, 12%);
-  --warning-light: hsl(38, 92%, 12%);
-  --danger-light: hsl(350, 89%, 14%);
+/* 10. LIGHT THEME VARIABLE OVERRIDES */
+body:not(.dark-theme) {
+  --bg-app: hsl(210, 40%, 96%);          /* Light slate gray canvas */
+  --white: hsl(0, 0%, 100%);             /* Pure white base */
+  --bg-card: rgba(255, 255, 255, 0.7);   /* Light frosted card */
+  --text-main: hsl(220, 40%, 12%);       /* Dark slate text */
+  --text-muted: hsl(215, 15%, 45%);      /* Muted gray */
+  --border-light: rgba(15, 23, 42, 0.08);/* Faint light border */
+  --border-focus: hsl(220, 95%, 60%);
+  --primary: hsl(220, 95%, 53%);         /* Solid blue accent */
+  --primary-hover: hsl(220, 95%, 45%);
+  --primary-light: rgba(15, 98, 254, 0.08);
+  --primary-glow: rgba(15, 98, 254, 0.2);
+  --success: hsl(142, 76%, 36%);
+  --success-light: hsl(142, 76%, 95%);
+  --warning: hsl(38, 92%, 50%);
+  --warning-light: hsl(38, 92%, 95%);
+  --danger: hsl(350, 89%, 60%);
+  --danger-light: hsl(350, 89%, 96%);
 }
 
 /* ==========================================================================
@@ -71,8 +75,8 @@ body.dark-theme {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* Support smooth color transitions when toggling dark mode */
-  transition: background-color var(--transition-normal), color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+  /* Smooth transitions for theme switches and hover glows */
+  transition: background-color var(--transition-normal), color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-fast);
 }
 
 html {
@@ -88,6 +92,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* 0. Floating Particle Canvas Background */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* Clean Custom Scrollbar */
@@ -117,6 +132,8 @@ body.dark-theme ::-webkit-scrollbar-thumb {
    APPLICATION CONTAINER LAYOUT
    ========================================================================== */
 .app-container {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -127,7 +144,9 @@ body.dark-theme ::-webkit-scrollbar-thumb {
    ========================================================================== */
 .app-header {
   height: var(--header-height);
-  background-color: var(--white);
+  background-color: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-light);
   display: flex;
   align-items: center;
@@ -153,7 +172,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 }
 
 .app-logo:hover {
-  transform: rotate(10deg) scale(1.05);
+  transform: rotate(12deg) scale(1.05);
 }
 
 .logo-text h1 {
@@ -165,14 +184,15 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 }
 
 .logo-text .tagline {
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.725rem;
+  font-weight: 600;
   color: var(--primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  display: inline-block;
 }
 
-/* Typing indicator cursor */
+/* Typing indicator cursor animation */
 .typing-tagline::after {
   content: "|";
   animation: cursor-blink 0.75s step-end infinite;
@@ -207,8 +227,9 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   border: 1px solid var(--border-light);
   font-family: var(--font-family);
   font-size: 0.875rem;
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   color: var(--text-main);
+  backdrop-filter: blur(5px);
 }
 
 .search-bar input:focus {
@@ -230,7 +251,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted);
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   padding: 6px 12px;
   border-radius: var(--radius-md);
   display: flex;
@@ -245,7 +266,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 
 /* 10. Theme Toggler Button */
 .btn-theme-toggle {
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-light);
   padding: 6px 12px;
   border-radius: var(--radius-md);
@@ -264,7 +285,8 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   background-color: var(--primary-light);
   border-color: var(--border-focus);
   color: var(--primary);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 
 /* 11. Notification Bell & Panel */
@@ -273,7 +295,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   cursor: pointer;
   width: 36px;
   height: 36px;
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   display: flex;
@@ -295,7 +317,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   top: -4px;
   right: -4px;
   background-color: var(--danger);
-  color: var(--white);
+  color: #fff;
   font-size: 0.65rem;
   font-weight: 700;
   min-width: 16px;
@@ -304,13 +326,13 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--white);
+  border: 2px solid var(--bg-card);
   animation: pulse-ring 2s infinite;
 }
 
 .notification-panel {
   position: absolute;
-  top: calc(var(--header-height) - 10px);
+  top: calc(var(--header-height) - 5px);
   right: 170px;
   width: 340px;
   background-color: var(--white);
@@ -440,11 +462,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   background-color: var(--primary-light);
   padding: 6px 14px;
   border-radius: 50px;
-  border: 1px solid hsl(220, 95%, 90%);
-}
-
-body.dark-theme .student-badge {
-  border-color: hsl(220, 95%, 20%);
+  border: 1px solid var(--border-light);
 }
 
 .avatar-placeholder {
@@ -452,7 +470,7 @@ body.dark-theme .student-badge {
   height: 32px;
   border-radius: 50%;
   background-color: var(--primary);
-  color: var(--white);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -490,7 +508,9 @@ body.dark-theme .student-badge {
 /* 2. Navigation Sidebar */
 .app-sidebar {
   width: var(--sidebar-width);
-  background-color: var(--white);
+  background-color: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-right: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
@@ -543,20 +563,21 @@ body.dark-theme .student-badge {
 .nav-item:hover {
   background-color: var(--primary-light);
   color: var(--primary);
-  transform: translateX(4px);
+  transform: translateX(6px);
+  box-shadow: 0 2px 8px var(--primary-glow);
 }
 
 .nav-item.active {
   background-color: var(--primary);
-  color: var(--white);
+  color: #fff;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(15, 98, 254, 0.2);
+  box-shadow: 0 4px 14px var(--primary-glow);
 }
 
 .nav-item.active:hover {
   transform: none;
   background-color: var(--primary);
-  color: var(--white);
+  color: #fff;
 }
 
 .nav-separator hr {
@@ -569,11 +590,12 @@ body.dark-theme .student-badge {
 .logout-btn:hover {
   background-color: var(--danger-light);
   color: var(--danger);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
 }
 
 /* Sidebar Info Panel */
 .sidebar-footer {
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   padding: 12px;
   border-radius: var(--radius-md);
   display: flex;
@@ -602,7 +624,7 @@ body.dark-theme .student-badge {
 }
 
 /* ==========================================================================
-   MAIN CONTENT WRAPPER
+   MAIN CONTENT WRAPPER (Frosted Glassmorphism Grid Panels)
    ========================================================================== */
 .app-content {
   flex: 1;
@@ -641,17 +663,31 @@ body.dark-theme .student-badge {
   margin: 8px 0;
 }
 
+/* Glassmorphic Panel Wrapper */
+.dashboard-section {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+
 /* ==========================================================================
    7. LATEST UPDATES TICKER (Marquee)
    ========================================================================== */
 .ticker-section {
   display: flex;
   align-items: center;
-  background-color: var(--white);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  padding: 0;
 }
 
 .ticker-label {
@@ -659,13 +695,13 @@ body.dark-theme .student-badge {
   align-items: center;
   gap: 8px;
   background-color: var(--primary);
-  color: var(--white);
+  color: #fff;
   padding: 10px 18px;
   font-size: 0.8rem;
   letter-spacing: 0.05em;
   font-weight: 700;
   white-space: nowrap;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 8px var(--primary-glow);
   z-index: 2;
 }
 
@@ -690,16 +726,10 @@ body.dark-theme .student-badge {
    3. WELCOME HERO SECTION
    ========================================================================== */
 .welcome-card {
-  background-color: var(--white);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
 }
 
-/* Add a beautiful top brand bar to the welcome card */
 .welcome-card::before {
   content: "";
   position: absolute;
@@ -707,7 +737,7 @@ body.dark-theme .student-badge {
   left: 0;
   right: 0;
   height: 6px;
-  background: linear-gradient(90deg, var(--primary), var(--primary-glow), var(--warning));
+  background: linear-gradient(90deg, var(--primary), var(--danger), var(--warning));
 }
 
 .welcome-header {
@@ -733,7 +763,7 @@ body.dark-theme .student-badge {
    ========================================================================== */
 .slider-wrapper {
   position: relative;
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -764,7 +794,7 @@ body.dark-theme .student-badge {
 .slide-item.active {
   opacity: 1;
   visibility: visible;
-  position: relative; /* Take up space of container dynamically */
+  position: relative; 
 }
 
 .slide-content {
@@ -822,13 +852,9 @@ body.dark-theme .student-badge {
   box-shadow: var(--shadow-sm);
 }
 
-/* SVG Interior Animations */
+/* SVG animations */
 .svg-bg {
-  fill: var(--bg-app);
-}
-
-body.dark-theme .svg-bg {
-  fill: hsl(220, 30%, 14%);
+  fill: rgba(255, 255, 255, 0.02);
 }
 
 .svg-circle-progress {
@@ -863,9 +889,9 @@ body.dark-theme .svg-bg {
 .slider-arrow:hover {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: var(--white);
+  color: #fff;
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 8px var(--primary-glow);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 
 .arrow-left { left: 10px; }
@@ -923,26 +949,17 @@ body.dark-theme .svg-bg {
   padding: 16px;
   border-radius: var(--radius-md);
   background-color: var(--primary-light);
-  border: 1px solid hsl(220, 95%, 92%);
+  border: 1px solid var(--border-light);
   transition: transform var(--transition-fast);
 }
 
-body.dark-theme .vision-card {
-  border-color: hsl(220, 95%, 20%);
-}
-
 .vision-card:hover, .mission-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
 
 .mission-card {
-  background-color: hsl(38, 92%, 97%);
-  border-color: hsl(38, 92%, 90%);
-}
-
-body.dark-theme .mission-card {
-  background-color: hsl(38, 92%, 12%);
-  border-color: hsl(38, 92%, 20%);
+  background-color: var(--warning-light);
 }
 
 .card-icon-wrapper {
@@ -964,7 +981,7 @@ body.dark-theme .mission-card {
 }
 
 /* ==========================================================================
-   4. DASHBOARD STATISTICS
+   4. DASHBOARD STATISTICS (Premium Cards outline glow)
    ========================================================================== */
 .stats-grid {
   display: grid;
@@ -973,7 +990,9 @@ body.dark-theme .mission-card {
 }
 
 .stat-card {
-  background-color: var(--bg-card);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: 24px;
@@ -985,9 +1004,9 @@ body.dark-theme .mission-card {
 }
 
 .stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-focus);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 242, 254, 0.15);
+  border-color: var(--primary);
 }
 
 .stat-header {
@@ -1006,42 +1025,13 @@ body.dark-theme .mission-card {
   font-size: 1.25rem;
 }
 
-/* Custom icon background gradients */
-.users-icon {
-  background-color: hsl(220, 95%, 95%);
-  color: var(--primary);
-}
-body.dark-theme .users-icon { background-color: hsl(220, 95%, 15%); }
-
-.active-icon {
-  background-color: hsl(142, 76%, 94%);
-  color: var(--success);
-}
-body.dark-theme .active-icon { background-color: hsl(142, 76%, 12%); }
-
-.revenue-icon {
-  background-color: hsl(38, 92%, 94%);
-  color: var(--warning);
-}
-body.dark-theme .revenue-icon { background-color: hsl(38, 92%, 12%); }
-
-.trans-icon {
-  background-color: hsl(190, 90%, 94%);
-  color: hsl(190, 90%, 40%);
-}
-body.dark-theme .trans-icon { background-color: hsl(190, 90%, 15%); }
-
-.notify-icon {
-  background-color: hsl(280, 80%, 95%);
-  color: hsl(280, 80%, 50%);
-}
-body.dark-theme .notify-icon { background-color: hsl(280, 80%, 15%); }
-
-.tasks-icon {
-  background-color: hsl(350, 89%, 95%);
-  color: var(--danger);
-}
-body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
+/* Icon backgrounds */
+.users-icon { background-color: var(--primary-light); color: var(--primary); }
+.active-icon { background-color: var(--success-light); color: var(--success); }
+.revenue-icon { background-color: var(--warning-light); color: var(--warning); }
+.trans-icon { background-color: rgba(14, 165, 233, 0.1); color: hsl(190, 90%, 55%); }
+.notify-icon { background-color: rgba(168, 85, 247, 0.1); color: hsl(280, 80%, 65%); }
+.tasks-icon { background-color: var(--danger-light); color: var(--danger); }
 
 .stat-card h4 {
   font-size: 0.875rem;
@@ -1067,34 +1057,148 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
   font-weight: 600;
 }
 
-.trend-up {
-  color: var(--success);
-}
+.trend-up { color: var(--success); }
+.trend-down { color: var(--danger); }
+.trend-neutral { color: var(--warning); }
 
-.trend-down {
-  color: var(--danger);
-}
-
-.trend-neutral {
-  color: var(--warning);
-}
-
-/* Warning styling for Pending Tasks */
 .warning-stat {
   border-left: 4px solid var(--warning);
 }
 
 /* ==========================================================================
-   5 & 6. FEATURES AND SERVICES (Lists Container)
+   5. INTERACTIVE FEATURE ORBIT MAP (Reference 1 & 3 concepts)
+   ========================================================================== */
+.orbit-section-card {
+  overflow: hidden;
+}
+
+.orbit-layout-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  width: 100%;
+}
+
+.orbit-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+/* Central core hub */
+.core-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary) 0%, rgba(0, 242, 254, 0.25) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px var(--primary-glow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 14px;
+  z-index: 10;
+  transition: all var(--transition-normal);
+}
+
+.core-icon-circle {
+  font-size: 1.75rem;
+  color: #fff;
+  line-height: 1;
+}
+
+#core-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 4px;
+  letter-spacing: -0.01em;
+}
+
+#core-description {
+  font-size: 0.625rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.3;
+  margin-top: 4px;
+}
+
+/* Pulse trigger for central core update */
+.core-hub.pulse-hub {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 0 40px var(--primary);
+}
+
+/* Orbiting Nodes (Li items positioned around center) */
+.orbit-list {
+  list-style: none;
+}
+
+.orbit-node {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  transition: all var(--transition-normal);
+}
+
+.node-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+/* Hover and active nodes layout (Reference 1 concept) */
+.orbit-node:hover, .orbit-node.active {
+  background-color: var(--primary);
+  border-color: var(--border-focus);
+  color: #fff;
+  transform: translate(-50%, -50%) scale(1.25);
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.orbit-node:hover .node-icon, .orbit-node.active .node-icon {
+  transform: scale(1.05);
+}
+
+/* Staggered float animations for floating node feel */
+.orbit-node:nth-child(1) { animation: float-node 4s ease-in-out infinite; }
+.orbit-node:nth-child(2) { animation: float-node 4s ease-in-out infinite 0.5s; }
+.orbit-node:nth-child(3) { animation: float-node 4s ease-in-out infinite 1s; }
+.orbit-node:nth-child(4) { animation: float-node 4s ease-in-out infinite 1.5s; }
+.orbit-node:nth-child(5) { animation: float-node 4s ease-in-out infinite 2s; }
+.orbit-node:nth-child(6) { animation: float-node 4s ease-in-out infinite 2.5s; }
+.orbit-node:nth-child(7) { animation: float-node 4s ease-in-out infinite 3s; }
+.orbit-node:nth-child(8) { animation: float-node 4s ease-in-out infinite 3.5s; }
+
+/* ==========================================================================
+   6. SERVICES SECTION (List layouts)
    ========================================================================== */
 .lists-container-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 24px;
 }
 
 .list-card-wrapper {
-  background-color: var(--white);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: 28px;
@@ -1124,54 +1228,7 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
   margin-bottom: 20px;
 }
 
-/* Features Unordered List */
-.features-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.features-list li {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  padding: 10px 12px;
-  background-color: var(--bg-app);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.features-list li::before {
-  content: "✔";
-  color: var(--primary);
-  font-weight: 900;
-  background-color: var(--primary-light);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  flex-shrink: 0;
-}
-
-.features-list li strong {
-  color: var(--text-main);
-  font-weight: 600;
-}
-
-.features-list li:hover {
-  transform: translateX(4px);
-  border-color: var(--border-focus);
-  background-color: var(--white);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Services Ordered List (Custom bubbles) */
+/* Services list custom bubbles */
 .services-list {
   list-style: none;
   counter-reset: services-counter;
@@ -1185,7 +1242,7 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
   font-size: 0.9rem;
   color: var(--text-muted);
   padding: 10px 12px;
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
   display: flex;
@@ -1195,7 +1252,7 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
 
 .services-list li::before {
   content: counter(services-counter);
-  color: var(--white);
+  color: #fff;
   font-weight: 700;
   background-color: var(--primary);
   width: 22px;
@@ -1206,7 +1263,7 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
   justify-content: center;
   font-size: 0.75rem;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(15, 98, 254, 0.2);
+  box-shadow: 0 2px 4px var(--primary-glow);
 }
 
 .services-list li strong {
@@ -1230,7 +1287,9 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-md);
-  background-color: var(--white);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .modules-table {
@@ -1262,14 +1321,14 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
 }
 
 .modules-table tbody tr:hover {
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 .modules-table td strong {
   color: var(--text-main);
 }
 
-/* Custom badge styling inside table */
+/* Module badges */
 .module-badge {
   display: inline-block;
   padding: 4px 10px;
@@ -1278,29 +1337,14 @@ body.dark-theme .tasks-icon { background-color: hsl(350, 89%, 15%); }
   border-radius: 50px;
 }
 
-.auth-badge { background-color: hsl(220, 95%, 94%); color: var(--primary); }
-body.dark-theme .auth-badge { background-color: hsl(220, 95%, 15%); }
-
-.upload-badge { background-color: hsl(142, 76%, 94%); color: var(--success); }
-body.dark-theme .upload-badge { background-color: hsl(142, 76%, 12%); }
-
-.download-badge { background-color: hsl(190, 90%, 94%); color: hsl(190, 90%, 40%); }
-body.dark-theme .download-badge { background-color: hsl(190, 90%, 15%); }
-
-.folder-badge { background-color: hsl(38, 92%, 94%); color: var(--warning); }
-body.dark-theme .folder-badge { background-color: hsl(38, 92%, 12%); }
-
-.share-badge { background-color: hsl(280, 80%, 95%); color: hsl(280, 80%, 50%); }
-body.dark-theme .share-badge { background-color: hsl(280, 80%, 15%); }
-
-.search-badge { background-color: hsl(320, 80%, 95%); color: hsl(320, 80%, 50%); }
-body.dark-theme .search-badge { background-color: hsl(320, 80%, 15%); }
-
-.notify-badge { background-color: hsl(45, 90%, 94%); color: hsl(45, 90%, 40%); }
-body.dark-theme .notify-badge { background-color: hsl(45, 90%, 15%); }
-
-.analytics-badge { background-color: hsl(160, 80%, 94%); color: hsl(160, 80%, 35%); }
-body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
+.auth-badge { background-color: var(--primary-light); color: var(--primary); }
+.upload-badge { background-color: var(--success-light); color: var(--success); }
+.download-badge { background-color: rgba(14, 165, 233, 0.1); color: hsl(190, 90%, 55%); }
+.folder-badge { background-color: var(--warning-light); color: var(--warning); }
+.share-badge { background-color: rgba(168, 85, 247, 0.1); color: hsl(280, 80%, 65%); }
+.search-badge { background-color: rgba(236, 72, 153, 0.1); color: hsl(320, 80%, 65%); }
+.notify-badge { background-color: rgba(234, 179, 8, 0.1); color: hsl(45, 90%, 50%); }
+.analytics-badge { background-color: rgba(20, 184, 166, 0.1); color: hsl(170, 80%, 45%); }
 
 /* ==========================================================================
    FORM & CONTACT BLOCK (Grid split)
@@ -1313,7 +1357,9 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 
 /* 12. Registration Form Styling */
 .form-card {
-  background-color: var(--white);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -1373,7 +1419,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
   padding: 10px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
-  background-color: var(--white);
+  background-color: rgba(255, 255, 255, 0.02);
   color: var(--text-main);
 }
 
@@ -1388,7 +1434,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
   resize: vertical;
 }
 
-/* 13. JS Validation Error Messages Styling */
+/* 13. Form Input Validation Error Message styling */
 .error-msg {
   font-size: 0.725rem;
   font-weight: 600;
@@ -1402,7 +1448,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
   animation: slide-in-top 0.2s ease-out;
 }
 
-/* Field State Border Highlights */
+/* Input validation states */
 .input-error {
   border-color: var(--danger) !important;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
@@ -1458,18 +1504,18 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 
 .btn-primary {
   background-color: var(--primary);
-  color: var(--white);
-  box-shadow: 0 4px 10px rgba(15, 98, 254, 0.15);
+  color: #fff;
+  box-shadow: 0 4px 10px var(--primary-glow);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(15, 98, 254, 0.25);
+  box-shadow: 0 6px 14px var(--primary-glow);
 }
 
 .btn-secondary {
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   color: var(--text-muted);
   border: 1px solid var(--border-light);
 }
@@ -1488,7 +1534,9 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
    17. CONTACT INFORMATION CARD
    ========================================================================== */
 .contact-card {
-  background-color: var(--white);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -1574,8 +1622,9 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 
 .social-link {
   font-size: 0.8rem;
-  color: var(--white);
-  background-color: var(--text-main);
+  color: #fff;
+  background-color: var(--white);
+  border: 1px solid var(--border-light);
   padding: 4px 12px;
   border-radius: 50px;
   text-decoration: none;
@@ -1584,6 +1633,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 
 .social-link:hover {
   background-color: var(--primary);
+  border-color: var(--border-focus);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--primary-glow);
 }
@@ -1607,7 +1657,9 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
    18. APP FOOTER
    ========================================================================== */
 .app-footer {
-  background-color: var(--white);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-light);
   padding: 20px 32px;
   display: flex;
@@ -1635,7 +1687,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 .footer-social-icon {
   width: 28px;
   height: 28px;
-  background-color: var(--bg-app);
+  background-color: rgba(255, 255, 255, 0.02);
   color: var(--text-muted);
   border: 1px solid var(--border-light);
   border-radius: 50%;
@@ -1648,9 +1700,10 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 
 .footer-social-icon:hover {
   background-color: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
-  transform: scale(1.1);
+  color: #fff;
+  border-color: var(--border-focus);
+  transform: scale(1.15);
+  box-shadow: 0 0 8px var(--primary-glow);
 }
 
 /* ==========================================================================
@@ -1663,7 +1716,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
   width: 44px;
   height: 44px;
   background-color: var(--primary);
-  color: var(--white);
+  color: #fff;
   border: none;
   border-radius: 50%;
   display: flex;
@@ -1689,7 +1742,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 .scroll-top-btn:hover {
   background-color: var(--primary-hover);
   transform: scale(1.1) translateY(-3px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 0 15px var(--primary-glow);
 }
 
 /* ==========================================================================
@@ -1731,14 +1784,14 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
   }
   50% {
     transform: scale(1.015);
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
     border-color: var(--warning);
   }
 }
 
 @keyframes pulse-ring {
   0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
   100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 
@@ -1756,6 +1809,11 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
 @keyframes wave-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
+}
+
+@keyframes float-node {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50% { transform: translate(-50%, -50%) translateY(-5px); }
 }
 
 /* ==========================================================================
@@ -1889,7 +1947,7 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
   }
 
   .slide-svg {
-    display: none; /* Hide visualization on very small mobile for layout space */
+    display: none; 
   }
 
   .stats-grid {
@@ -1921,5 +1979,23 @@ body.dark-theme .analytics-badge { background-color: hsl(160, 80%, 15%); }
     width: calc(100vw - 32px);
     right: 16px;
     left: 16px;
+  }
+  
+  .orbit-container {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .core-hub {
+    width: 110px;
+    height: 110px;
+  }
+  
+  #core-title {
+    font-size: 0.75rem;
+  }
+  
+  #core-description {
+    font-size: 0.55rem;
   }
 }
