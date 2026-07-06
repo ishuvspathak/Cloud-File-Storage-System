@@ -2,11 +2,11 @@
    DESIGN SYSTEM & VARIABLES (Light Mode Default, Dark Mode Optional)
    ========================================================================== */
 :root {
-  /* Brand Color Palette - Royal SaaS Blue */
-  --primary: hsl(220, 95%, 53%);         
-  --primary-hover: hsl(220, 95%, 45%);
-  --primary-light: rgba(15, 98, 254, 0.08);
-  --primary-glow: rgba(15, 98, 254, 0.15);
+  /* Brand Color Palette - Advisr Red & Slate Gray */
+  --primary: hsl(0, 85%, 53%);         /* Coral Red */
+  --primary-hover: hsl(0, 85%, 45%);
+  --primary-light: rgba(229, 43, 42, 0.06);
+  --primary-glow: rgba(229, 43, 42, 0.15);
 
   /* Status Colors */
   --success: hsl(142, 76%, 36%);
@@ -16,14 +16,14 @@
   --danger: hsl(350, 89%, 60%);
   --danger-light: hsl(350, 89%, 96%);
 
-  /* Default Light Theme Settings */
+  /* Advisr Theme Light Settings */
   --white: hsl(0, 0%, 100%);             /* Pure white base */
-  --bg-app: hsl(210, 40%, 96%);          /* Light slate gray base */
-  --bg-card: rgba(255, 255, 255, 0.75);   /* Light frosted card */
-  --text-main: hsl(220, 40%, 12%);       /* Dark slate text */
+  --bg-app: hsl(210, 30%, 97%);          /* Light gray/blue base */
+  --bg-card: rgba(255, 255, 255, 0.85);   /* White card */
+  --text-main: hsl(215, 45%, 15%);       /* Dark slate text */
   --text-muted: hsl(215, 15%, 45%);      /* Muted gray */
-  --border-light: rgba(15, 23, 42, 0.08);/* Faint light border */
-  --border-focus: hsl(220, 95%, 60%);
+  --border-light: rgba(229, 43, 42, 0.08);/* Faint red/gray border */
+  --border-focus: hsl(0, 85%, 53%);
 
   /* Layout Constants */
   --sidebar-width: 260px;
@@ -33,9 +33,9 @@
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Elevation & Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
-  --shadow-lg: 0 15px 45px rgba(31, 38, 135, 0.08);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 8px 32px 0 rgba(229, 43, 42, 0.03);
+  --shadow-lg: 0 15px 45px rgba(229, 43, 42, 0.05);
 
   /* Borders & Radius */
   --radius-sm: 8px;
@@ -49,26 +49,26 @@
 
 /* Midnight Dark Theme overrides */
 body.dark-theme {
-  --white: hsl(222, 25%, 10%);          /* Dark Slate frosted card */
-  --bg-app: hsl(222, 47%, 6%);           /* Space base */
-  --bg-card: rgba(15, 23, 42, 0.65);     /* Glassmorphism card back */
-  --text-main: hsl(210, 40%, 98%);       /* High-contrast off-white */
-  --text-muted: hsl(215, 20%, 65%);      /* Faint grey */
-  --border-light: rgba(255, 255, 255, 0.08); /* Frosted border */
-  --border-focus: hsl(190, 90%, 55%);
-  --primary: hsl(200, 95%, 50%);         /* Electric Cyan */
-  --primary-hover: hsl(195, 95%, 45%);
-  --primary-light: rgba(0, 242, 254, 0.1); 
-  --primary-glow: rgba(0, 242, 254, 0.3);
+  --white: hsl(0, 0%, 5%);          /* Dark Slate/Black card */
+  --bg-app: hsl(0, 0%, 2%);           /* Deep pitch black */
+  --bg-card: rgba(12, 12, 12, 0.75);     /* Black glassmorphism */
+  --text-main: hsl(0, 0%, 98%);       /* Pure white text */
+  --text-muted: hsl(0, 0%, 65%);      /* Faint grey */
+  --border-light: rgba(255, 255, 255, 0.06); 
+  --border-focus: hsl(0, 85%, 55%);
+  --primary: hsl(0, 85%, 53%);         /* Coral Red */
+  --primary-hover: hsl(0, 85%, 45%);
+  --primary-light: rgba(229, 43, 42, 0.1); 
+  --primary-glow: rgba(229, 43, 42, 0.35);
   --success: hsl(142, 76%, 45%);
   --success-light: rgba(16, 185, 129, 0.1);
   --warning: hsl(38, 92%, 50%);
   --warning-light: rgba(245, 158, 11, 0.1);
   --danger: hsl(350, 89%, 60%);
   --danger-light: rgba(239, 68, 68, 0.1);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 15px 45px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 15px 45px rgba(0, 0, 0, 0.6);
 }
 
 /* ==========================================================================
@@ -89,7 +89,7 @@ html {
 body {
   font-family: var(--font-family);
   /* Optimized smooth gradient mesh background instead of CPU-heavy Canvas */
-  background: linear-gradient(-45deg, hsl(210, 40%, 94%), hsl(210, 40%, 97%), hsl(220, 95%, 97%), hsl(190, 90%, 96%));
+  background: linear-gradient(-45deg, hsl(210, 30%, 96%), hsl(0, 0%, 99%), hsl(0, 85%, 98%), hsl(210, 30%, 95%));
   background-size: 400% 400%;
   animation: meshBG 18s ease infinite;
   color: var(--text-main);
@@ -100,7 +100,7 @@ body {
 }
 
 body.dark-theme {
-  background: linear-gradient(-45deg, hsl(222, 47%, 4%), hsl(220, 40%, 6%), hsl(222, 30%, 8%), hsl(200, 40%, 5%));
+  background: linear-gradient(-45deg, hsl(0, 0%, 2%), hsl(0, 85%, 3%), hsl(0, 0%, 4%), hsl(0, 85%, 1%));
   background-size: 400% 400%;
   animation: meshBG 18s ease infinite;
 }
