@@ -14,9 +14,6 @@
 </head>
 <body>
 
-  <!-- Floating Canvas Particle Background -->
-  <canvas id="particle-canvas"></canvas>
-
   <!-- Top-level main application layout -->
   <div class="app-container">
 
@@ -93,14 +90,28 @@
           </div>
         </div>
 
-        <!-- Student Identity Badge -->
-        <div class="student-badge">
-          <span class="avatar-placeholder">IP</span>
-          <div class="student-info">
-            <h6 class="student-name">Ishu Pathak</h6>
-            <p class="reg-number">Reg: <strong>2303717620521021</strong></p>
+        <!-- 10. User Profile Dropdown Menu Trigger & Panel -->
+        <div class="profile-menu-container" id="profile-trigger">
+          <div class="student-badge clickable">
+            <span class="avatar-placeholder" id="avatar-letters">IP</span>
+            <div class="student-info">
+              <h6 class="student-name" id="display-user-name">Ishu Pathak</h6>
+              <p class="reg-number">Reg: 2303717620521021</p>
+            </div>
+            <span class="dropdown-chevron">&#9662;</span>
+          </div>
+          <!-- Profile Dropdown Menu List -->
+          <div class="profile-dropdown-panel" id="profile-dropdown">
+            <ul>
+              <li><a href="#registration" id="profile-edit-btn">&#9998; Edit Profile Details</a></li>
+              <li><a href="#" id="profile-switch-btn">&#128257; Switch to Guest Account</a></li>
+              <li><a href="#registration" id="profile-register-btn">&#128100; Register New User</a></li>
+              <li class="menu-divider"></li>
+              <li><a href="#" id="profile-logout-btn" class="logout-action">&#128275; Logout Workspace</a></li>
+            </ul>
           </div>
         </div>
+
       </div>
     </header>
 

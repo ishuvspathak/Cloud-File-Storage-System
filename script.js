@@ -1,12 +1,11 @@
 /**
  * Cloud File Storage System - Dashboard Interactivity & Animation Logic
  * Student: Ishu Pathak (Reg No: 2303717620521021)
- * Week 3 Web Technology Lab Assignment - HTML5 Forms & Semantics
+ * Week 3 Web Technology Lab Assignment - Optimized Portfolio Edition
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all interactive modules
-  initParticleCanvas();
   initClock();
   initThemeSwitcher();
   initStatsCounters();
@@ -16,102 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollToTop();
   initTypingEffect();
   initOrbitMap();
+  initProfileDropdown(); // New Profile Dropdown Module
 });
-
-/* ==========================================================================
-   0. PARTICLE BACKGROUND CANVAS ENGINE
-   ========================================================================== */
-function initParticleCanvas() {
-  const canvas = document.getElementById('particle-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  
-  let particles = [];
-  let width, height;
-  
-  function resize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  }
-  
-  window.addEventListener('resize', resize);
-  resize();
-  
-  const particleCount = Math.min(80, Math.floor((width * height) / 18000));
-  for (let i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      r: Math.random() * 2 + 1,
-      color: 'rgba(0, 242, 254, 0.2)'
-    });
-  }
-  
-  let mouse = { x: null, y: null, radius: 130 };
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-  
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-    
-    const isDark = document.body.classList.contains('dark-theme');
-    const pColor = isDark ? 'rgba(0, 242, 254, 0.25)' : 'rgba(15, 98, 254, 0.15)';
-    const lColor = isDark ? 'rgba(0, 242, 254, 0.05)' : 'rgba(15, 98, 254, 0.04)';
-    
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.color = pColor;
-      
-      p.x += p.vx;
-      p.y += p.vy;
-      
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
-      
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-      
-      for (let j = i + 1; j < particles.length; j++) {
-        const p2 = particles[j];
-        const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = lColor;
-          ctx.lineWidth = 0.5 * (1 - dist / 100);
-          ctx.stroke();
-        }
-      }
-      
-      if (mouse.x !== null) {
-        const mDist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-        if (mDist < mouse.radius) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = isDark ? 'rgba(79, 172, 254, 0.09)' : 'rgba(15, 98, 254, 0.05)';
-          ctx.lineWidth = 0.6 * (1 - mDist / mouse.radius);
-          ctx.stroke();
-        }
-      }
-    }
-    
-    requestAnimationFrame(animate);
-  }
-  
-  animate();
-}
 
 /* ==========================================================================
    1. DIGITAL CLOCK & DATE DISPLAY
@@ -146,7 +51,7 @@ function initClock() {
 }
 
 /* ==========================================================================
-   2. THEME SWITCHER (Light / Dark Mode)
+   2. THEME SWITCHER (Light Mode by default)
    ========================================================================== */
 function initThemeSwitcher() {
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
@@ -154,12 +59,13 @@ function initThemeSwitcher() {
 
   const storedTheme = localStorage.getItem('theme');
   
-  if (storedTheme === 'light') {
-    document.body.classList.remove('dark-theme');
-    updateThemeIcon(false);
-  } else {
+  // Default to Light Mode on load unless dark theme was explicitly selected
+  if (storedTheme === 'dark') {
     document.body.classList.add('dark-theme');
     updateThemeIcon(true);
+  } else {
+    document.body.classList.remove('dark-theme');
+    updateThemeIcon(false);
   }
 
   themeToggleBtn.addEventListener('click', () => {
@@ -332,7 +238,7 @@ function initNotificationPanel() {
 }
 
 /* ==========================================================================
-   6. REGISTRATION FORM VALIDATION (Upgraded with HTML5 elements)
+   6. REGISTRATION FORM VALIDATION 
    ========================================================================== */
 function initFormValidation() {
   const form = document.querySelector('.register-form');
@@ -358,13 +264,11 @@ function initFormValidation() {
     });
   });
 
-  // Cancel Button Action Handler
   const cancelBtn = document.getElementById('btn-cancel');
   if (cancelBtn) {
     cancelBtn.addEventListener('click', () => {
       if (confirm('Cancel registration? All entered data will be reset.')) {
         form.reset();
-        // Remove error classes
         fields.forEach(f => {
           const input = document.getElementById(f.id);
           if (input) input.classList.remove('input-error', 'input-success');
@@ -392,7 +296,6 @@ function initFormValidation() {
   form.addEventListener('submit', (e) => {
     let isFormValid = true;
 
-    // Validate standard fields
     fields.forEach(field => {
       const input = document.getElementById(field.id);
       if (input) {
@@ -401,7 +304,6 @@ function initFormValidation() {
       }
     });
 
-    // Validate gender selection (Radio buttons)
     const genderRadios = document.querySelectorAll('input[name="gender"]');
     const genderError = document.getElementById('gender-error');
     let genderSelected = false;
@@ -417,7 +319,6 @@ function initFormValidation() {
       clearError(genderError);
     }
 
-    // Validate skills selection (Checkboxes)
     const skillsCheckboxes = document.querySelectorAll('input[name="skills"]');
     const skillsError = document.getElementById('skills-error');
     let skillSelected = false;
@@ -459,7 +360,6 @@ function initFormValidation() {
     if (skillsError) clearError(skillsError);
   });
 
-  /* Individual Validation Functions */
   function validateName(input) {
     const errSpan = document.getElementById('reg-name-error');
     const val = input.value.trim();
@@ -675,4 +575,104 @@ function initOrbitMap() {
       coreDesc.textContent = desc;
     });
   });
+}
+
+/* ==========================================================================
+   10. USER PROFILE DROPDOWN MENU
+   ========================================================================== */
+function initProfileDropdown() {
+  const trigger = document.getElementById('profile-trigger');
+  const dropdown = document.getElementById('profile-dropdown');
+  const editBtn = document.getElementById('profile-edit-btn');
+  const switchBtn = document.getElementById('profile-switch-btn');
+  const registerBtn = document.getElementById('profile-register-btn');
+  const logoutBtn = document.getElementById('profile-logout-btn');
+  
+  const userNameEl = document.getElementById('display-user-name');
+  const avatarEl = document.getElementById('avatar-letters');
+  
+  if (!trigger || !dropdown) return;
+  
+  // Toggle dropdown
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('show');
+  });
+  
+  // Click outside to close
+  document.addEventListener('click', (e) => {
+    if (!trigger.contains(e.target)) {
+      dropdown.classList.remove('show');
+    }
+  });
+  
+  // Edit details action (Scroll and focus)
+  if (editBtn) {
+    editBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdown.classList.remove('show');
+      const formSection = document.getElementById('registration');
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const nameInput = document.getElementById('reg-name');
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 800); 
+        }
+      }
+    });
+  }
+  
+  // Switch User action (Mock toggle between Ishu Pathak and Guest Account)
+  let isGuest = false;
+  if (switchBtn) {
+    switchBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropdown.classList.remove('show');
+      
+      isGuest = !isGuest;
+      if (isGuest) {
+        if (userNameEl) userNameEl.textContent = 'Guest Account';
+        if (avatarEl) avatarEl.textContent = 'GA';
+        switchBtn.innerHTML = '&#128257; Switch to Ishu Pathak';
+        alert('Switched to Guest Account view.');
+      } else {
+        if (userNameEl) userNameEl.textContent = 'Ishu Pathak';
+        if (avatarEl) avatarEl.textContent = 'IP';
+        switchBtn.innerHTML = '&#128257; Switch to Guest Account';
+        alert('Switched back to Ishu Pathak account.');
+      }
+    });
+  }
+  
+  // Register New User action (Scroll and focus name)
+  if (registerBtn) {
+    registerBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdown.classList.remove('show');
+      const formSection = document.getElementById('registration');
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const form = document.querySelector('.register-form');
+        if (form) form.reset();
+        const nameInput = document.getElementById('reg-name');
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 800);
+        }
+      }
+    });
+  }
+  
+  // Logout action
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdown.classList.remove('show');
+      if (confirm('Are you sure you want to log out of the dashboard?')) {
+        alert('Logged out successfully. Returning to public workspace view.');
+        if (userNameEl) userNameEl.textContent = 'Public Workspace';
+        if (avatarEl) avatarEl.textContent = 'PW';
+      }
+    });
+  }
 }
