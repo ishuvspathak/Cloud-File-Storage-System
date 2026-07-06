@@ -9,24 +9,38 @@ const supabaseUrl = 'https://toehtsuhbswcaawrnfgx.supabase.co';
 const supabaseKey = 'sb_publishable_GuIabkO0pJUd4bboVSKliQ_EhgxgLvN';
 let supabase = null;
 
-if (window.supabase) {
-  const { createClient } = window.supabase;
-  supabase = createClient(supabaseUrl, supabaseKey);
+try {
+  if (window.supabase) {
+    const { createClient } = window.supabase;
+    supabase = createClient(supabaseUrl, supabaseKey);
+  }
+} catch (err) {
+  console.error('Supabase initialization failed:', err);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize all interactive modules
-  initClock();
-  initThemeSwitcher();
-  initStatsCounters();
-  initImageSlider();
-  initNotificationPanel();
-  initFormValidation();
-  initScrollToTop();
-  initTypingEffect();
-  initOrbitMap();
-  initProfileDropdown(); 
-  initCloudFilesExplorer(); // New Supabase Cloud Storage Explorer module
+  // Initialize all interactive modules with safety try-catch wrappers to prevent script-wide crashes
+  const modules = [
+    { name: 'Clock', init: initClock },
+    { name: 'Theme', init: initThemeSwitcher },
+    { name: 'Stats', init: initStatsCounters },
+    { name: 'Slider', init: initImageSlider },
+    { name: 'Notify', init: initNotificationPanel },
+    { name: 'Validation', init: initFormValidation },
+    { name: 'Scroll', init: initScrollToTop },
+    { name: 'Typing', init: initTypingEffect },
+    { name: 'Orbit', init: initOrbitMap },
+    { name: 'Profile', init: initProfileDropdown },
+    { name: 'CloudFiles', init: initCloudFilesExplorer }
+  ];
+
+  modules.forEach(m => {
+    try {
+      m.init();
+    } catch (err) {
+      console.error(`Error initializing module [${m.name}]:`, err);
+    }
+  });
 });
 
 /* ==========================================================================
