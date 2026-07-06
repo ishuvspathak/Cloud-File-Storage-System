@@ -4,15 +4,15 @@
  * Week 3 Web Technology Lab Assignment - Optimized Supabase Cloud Edition
  */
 
-// Initialize Supabase Client (Connected to user project 'Cloud File Storage')
+// Initialize Supabase Client (Renamed to supabaseClient to avoid name conflict with CDN global)
 const supabaseUrl = 'https://toehtsuhbswcaawrnfgx.supabase.co';
 const supabaseKey = 'sb_publishable_GuIabkO0pJUd4bboVSKliQ_EhgxgLvN';
-let supabase = null;
+let supabaseClient = null;
 
 try {
   if (window.supabase) {
     const { createClient } = window.supabase;
-    supabase = createClient(supabaseUrl, supabaseKey);
+    supabaseClient = createClient(supabaseUrl, supabaseKey);
   }
 } catch (err) {
   console.error('Supabase initialization failed:', err);
@@ -384,7 +384,7 @@ function initFormValidation() {
     submitBtn.disabled = true;
 
     try {
-      if (!supabase) {
+      if (!supabaseClient) {
         throw new Error('Supabase client could not be loaded.');
       }
 
@@ -401,7 +401,7 @@ function initFormValidation() {
         address: document.getElementById('reg-address').value.trim()
       };
 
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('profiles')
         .insert([profileData]);
 
@@ -759,7 +759,7 @@ function initCloudFilesExplorer() {
   const fileInput = document.getElementById('cloud-file-input');
   const statusEl = document.getElementById('upload-status');
   
-  if (!supabase) {
+  if (!supabaseClient) {
     const tbody = document.getElementById('files-table-body');
     if (tbody) {
       tbody.innerHTML = `<tr><td colspan="4" class="no-files-placeholder error-text">Error: Supabase is not configured. Check script.js configuration.</td></tr>`;
@@ -788,7 +788,7 @@ function initCloudFilesExplorer() {
         const fileNameOnly = file.name.replace(/\.[^/.]+$/, "");
         const cleanPath = `uploads/${Date.now()}_${fileNameOnly}.${fileExt}`;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .storage
           .from('file-uploads')
           .upload(cleanPath, file);
@@ -798,7 +798,7 @@ function initCloudFilesExplorer() {
         }
 
         // 2. Retrieve Public Download Link
-        const { data: urlData } = supabase
+        const { data: urlData } = supabaseClient
           .storage
           .from('file-uploads')
           .getPublicUrl(cleanPath);
@@ -806,7 +806,7 @@ function initCloudFilesExplorer() {
         const publicUrl = urlData.publicUrl;
 
         // 3. Log Metadata in 'file_metadata' table
-        const { error: dbError } = await supabase
+        const { error: dbError } = await supabaseClient
           .from('file_metadata')
           .insert([
             { name: file.name, size: file.size, download_url: publicUrl }
@@ -834,10 +834,10 @@ function initCloudFilesExplorer() {
 
 async function loadFilesFromSupabase() {
   const tbody = document.getElementById('files-table-body');
-  if (!tbody || !supabase) return;
+  if (!tbody || !supabaseClient) return;
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('file_metadata')
       .select('*')
       .order('created_at', { ascending: false });
