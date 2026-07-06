@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Load Supabase JS Client SDK via CDN (Needed for cloud database/storage connectivity) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <!-- Interactive script, loaded deferred to allow DOM parsing -->
   <script src="script.js" defer></script>
 </head>
@@ -467,62 +471,43 @@
 
         <hr class="section-divider">
 
-        <!-- 9. Application Modules Table -->
-        <section id="modules" class="dashboard-section">
+        <!-- Real-time Cloud Files Explorer Section (Replaces Static Modules table) -->
+        <section id="cloud-storage-explorer" class="dashboard-section animate-fade-in">
           <div class="section-header">
-            <h2>Application Modules</h2>
-            <p class="section-subtitle">An overview of system-level modules, access points, and processing layers.</p>
+            <h2>Cloud Storage Explorer</h2>
+            <p class="section-subtitle">Real-time uploaded assets inside your secure Supabase Cloud Storage bucket.</p>
           </div>
           
+          <!-- Cloud Upload Widget -->
+          <div class="cloud-upload-zone">
+            <div class="upload-icon-circle">&#128228;</div>
+            <div class="upload-zone-text">
+              <h4>Secure File Upload Tunnel</h4>
+              <p>Select any PDF, Image, Word document, or data file to stream to the cloud bucket.</p>
+            </div>
+            <div class="upload-controls">
+              <input type="file" id="cloud-file-input" class="hidden-file-input">
+              <label for="cloud-file-input" class="btn-secondary">Choose File</label>
+              <button type="button" id="btn-cloud-upload" class="btn-primary">Upload File to Cloud</button>
+            </div>
+            <!-- Dynamic Status Messages -->
+            <p id="upload-status" class="upload-status-text"></p>
+          </div>
+
+          <!-- Files Table list -->
           <div class="table-responsive">
-            <table class="modules-table">
+            <table class="modules-table" id="files-table">
               <thead>
                 <tr>
-                  <th scope="col">Module ID</th>
-                  <th scope="col">Module Name</th>
-                  <th scope="col">Description</th>
+                  <th scope="col">File Name</th>
+                  <th scope="col">Size (KB)</th>
+                  <th scope="col">Uploaded Timestamp</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="files-table-body">
                 <tr>
-                  <td><strong>101</strong></td>
-                  <td><span class="module-badge auth-badge">Authentication</span></td>
-                  <td>User Login and Registration</td>
-                </tr>
-                <tr>
-                  <td><strong>102</strong></td>
-                  <td><span class="module-badge upload-badge">File Upload</span></td>
-                  <td>Upload Files Securely</td>
-                </tr>
-                <tr>
-                  <td><strong>103</strong></td>
-                  <td><span class="module-badge download-badge">File Download</span></td>
-                  <td>Download Stored Files</td>
-                </tr>
-                <tr>
-                  <td><strong>104</strong></td>
-                  <td><span class="module-badge folder-badge">Folder Management</span></td>
-                  <td>Organize Files into Folders</td>
-                </tr>
-                <tr>
-                  <td><strong>105</strong></td>
-                  <td><span class="module-badge share-badge">File Sharing</span></td>
-                  <td>Share Files Securely</td>
-                </tr>
-                <tr>
-                  <td><strong>106</strong></td>
-                  <td><span class="module-badge search-badge">Search System</span></td>
-                  <td>Search Files Quickly</td>
-                </tr>
-                <tr>
-                  <td><strong>107</strong></td>
-                  <td><span class="module-badge notify-badge">Notifications</span></td>
-                  <td>User Alerts and Updates</td>
-                </tr>
-                <tr>
-                  <td><strong>108</strong></td>
-                  <td><span class="module-badge analytics-badge">Storage Analytics</span></td>
-                  <td>Storage Usage Dashboard</td>
+                  <td colspan="4" class="no-files-placeholder">Loading file metadata from cloud...</td>
                 </tr>
               </tbody>
             </table>

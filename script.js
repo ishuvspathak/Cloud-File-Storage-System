@@ -1,8 +1,17 @@
 /**
  * Cloud File Storage System - Dashboard Interactivity & Animation Logic
  * Student: Ishu Pathak (Reg No: 2303717620521021)
- * Week 3 Web Technology Lab Assignment - Optimized Portfolio Edition
+ * Week 3 Web Technology Lab Assignment - Optimized Supabase Cloud Edition
  */
+
+// Initialize Supabase Client (Connected to user project 'Cloud File Storage')
+const supabaseUrl = 'https://toehtsuhbswcaawrnfgx.supabase.co';
+const supabaseKey = 'sb_publishable_GuIabkO0pJUd4bboVSKliQ_EhgxgLvN';
+let supabase = null;
+
+if (window.supabase) {
+  supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all interactive modules
@@ -15,7 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollToTop();
   initTypingEffect();
   initOrbitMap();
-  initProfileDropdown(); // New Profile Dropdown Module
+  initProfileDropdown(); 
+  initCloudFilesExplorer(); // New Supabase Cloud Storage Explorer module
 });
 
 /* ==========================================================================
@@ -59,7 +69,6 @@ function initThemeSwitcher() {
 
   const storedTheme = localStorage.getItem('theme');
   
-  // Default to Light Mode on load unless dark theme was explicitly selected
   if (storedTheme === 'dark') {
     document.body.classList.add('dark-theme');
     updateThemeIcon(true);
@@ -238,7 +247,7 @@ function initNotificationPanel() {
 }
 
 /* ==========================================================================
-   6. REGISTRATION FORM VALIDATION 
+   6. REGISTRATION FORM VALIDATION & CLOUD STORAGE SAVES
    ========================================================================== */
 function initFormValidation() {
   const form = document.querySelector('.register-form');
@@ -293,9 +302,12 @@ function initFormValidation() {
     });
   }
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent standard page reloading
+    
     let isFormValid = true;
 
+    // Validate fields
     fields.forEach(field => {
       const input = document.getElementById(field.id);
       if (input) {
@@ -307,9 +319,13 @@ function initFormValidation() {
     const genderRadios = document.querySelectorAll('input[name="gender"]');
     const genderError = document.getElementById('gender-error');
     let genderSelected = false;
+    let genderValue = '';
     
     genderRadios.forEach(radio => {
-      if (radio.checked) genderSelected = true;
+      if (radio.checked) {
+        genderSelected = true;
+        genderValue = radio.value;
+      }
     });
 
     if (!genderSelected) {
@@ -322,9 +338,13 @@ function initFormValidation() {
     const skillsCheckboxes = document.querySelectorAll('input[name="skills"]');
     const skillsError = document.getElementById('skills-error');
     let skillSelected = false;
+    let skillsArray = [];
 
     skillsCheckboxes.forEach(checkbox => {
-      if (checkbox.checked) skillSelected = true;
+      if (checkbox.checked) {
+        skillSelected = true;
+        skillsArray.push(checkbox.value);
+      }
     });
 
     if (!skillSelected) {
@@ -335,13 +355,58 @@ function initFormValidation() {
     }
 
     if (!isFormValid) {
-      e.preventDefault(); 
       const firstError = document.querySelector('.error-msg.visible');
       if (firstError) {
         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-    } else {
-      alert('Registration Successful! Redirecting to secure storage workspace...');
+      return;
+    }
+
+    // Submit to Supabase database profiles table
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Saving Profile to Cloud...';
+    submitBtn.disabled = true;
+
+    try {
+      if (!supabase) {
+        throw new Error('Supabase client could not be loaded.');
+      }
+
+      const profileData = {
+        name: document.getElementById('reg-name').value.trim(),
+        email: document.getElementById('reg-email').value.trim(),
+        phone: document.getElementById('reg-phone').value.trim(),
+        password: document.getElementById('reg-password').value, 
+        dob: document.getElementById('reg-dob').value,
+        age: parseInt(document.getElementById('reg-age').value, 10),
+        pref_time: document.getElementById('reg-time').value,
+        gender: genderValue,
+        skills: skillsArray,
+        address: document.getElementById('reg-address').value.trim()
+      };
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .insert([profileData]);
+
+      if (error) {
+        throw error;
+      }
+
+      alert('Registration Successful! Your profile has been stored in your Supabase Cloud Database.');
+      form.reset();
+      
+      fields.forEach(field => {
+        const input = document.getElementById(field.id);
+        if (input) input.classList.remove('input-success');
+      });
+      
+    } catch (err) {
+      alert(`Registration Failed: ${err.message}`);
+    } finally {
+      submitBtn.textContent = originalBtnText;
+      submitBtn.disabled = false;
     }
   });
 
@@ -376,7 +441,7 @@ function initFormValidation() {
     const val = input.value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(val)) {
-      showError(errSpan, 'Please enter a valid email address (e.g. name@example.com)', input);
+      showError(errSpan, 'Please enter a valid email address', input);
       return false;
     }
     showSuccess(errSpan, input);
@@ -593,20 +658,17 @@ function initProfileDropdown() {
   
   if (!trigger || !dropdown) return;
   
-  // Toggle dropdown
   trigger.addEventListener('click', (e) => {
     e.stopPropagation();
     dropdown.classList.toggle('show');
   });
   
-  // Click outside to close
   document.addEventListener('click', (e) => {
     if (!trigger.contains(e.target)) {
       dropdown.classList.remove('show');
     }
   });
   
-  // Edit details action (Scroll and focus)
   if (editBtn) {
     editBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -622,7 +684,6 @@ function initProfileDropdown() {
     });
   }
   
-  // Switch User action (Mock toggle between Ishu Pathak and Guest Account)
   let isGuest = false;
   if (switchBtn) {
     switchBtn.addEventListener('click', (e) => {
@@ -645,7 +706,6 @@ function initProfileDropdown() {
     });
   }
   
-  // Register New User action (Scroll and focus name)
   if (registerBtn) {
     registerBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -663,7 +723,6 @@ function initProfileDropdown() {
     });
   }
   
-  // Logout action
   if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -675,4 +734,132 @@ function initProfileDropdown() {
       }
     });
   }
+}
+
+/* ==========================================================================
+   11. SUPABASE CLOUD FILE UPLOADS & METADATA SYNC
+   ========================================================================== */
+function initCloudFilesExplorer() {
+  const uploadBtn = document.getElementById('btn-cloud-upload');
+  const fileInput = document.getElementById('cloud-file-input');
+  const statusEl = document.getElementById('upload-status');
+  
+  if (!supabase) {
+    const tbody = document.getElementById('files-table-body');
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="4" class="no-files-placeholder error-text">Error: Supabase is not configured. Check script.js configuration.</td></tr>`;
+    }
+    return;
+  }
+  
+  // Fetch and display already uploaded files
+  loadFilesFromSupabase();
+
+  if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener('click', async () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        statusEl.textContent = 'Warning: Please select a file first.';
+        statusEl.className = 'upload-status-text error-msg visible';
+        return;
+      }
+
+      statusEl.textContent = `Streaming "${file.name}" to Cloud Storage...`;
+      statusEl.className = 'upload-status-text info-msg visible';
+
+      try {
+        // 1. Upload the file to Supabase bucket 'file-uploads'
+        const fileExt = file.name.split('.').pop();
+        const fileNameOnly = file.name.replace(/\.[^/.]+$/, "");
+        const cleanPath = `uploads/${Date.now()}_${fileNameOnly}.${fileExt}`;
+
+        const { data, error } = await supabase
+          .storage
+          .from('file-uploads')
+          .upload(cleanPath, file);
+
+        if (error) {
+          throw error;
+        }
+
+        // 2. Retrieve Public Download Link
+        const { data: urlData } = supabase
+          .storage
+          .from('file-uploads')
+          .getPublicUrl(cleanPath);
+
+        const publicUrl = urlData.publicUrl;
+
+        // 3. Log Metadata in 'file_metadata' table
+        const { error: dbError } = await supabase
+          .from('file_metadata')
+          .insert([
+            { name: file.name, size: file.size, download_url: publicUrl }
+          ]);
+
+        if (dbError) {
+          throw dbError;
+        }
+
+        statusEl.textContent = `Success: "${file.name}" uploaded and logged inside cloud.`;
+        statusEl.className = 'upload-status-text success-text visible';
+        fileInput.value = ''; // Reset file input
+
+        // Reload lists in real-time
+        loadFilesFromSupabase();
+
+      } catch (err) {
+        console.error('Upload Process Failed:', err.message);
+        statusEl.textContent = `Upload Failed: ${err.message}`;
+        statusEl.className = 'upload-status-text error-msg visible';
+      }
+    });
+  }
+}
+
+async function loadFilesFromSupabase() {
+  const tbody = document.getElementById('files-table-body');
+  if (!tbody || !supabase) return;
+
+  try {
+    const { data, error } = await supabase
+      .from('file_metadata')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    if (data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" class="no-files-placeholder">No files in cloud bucket. Upload a file above to begin!</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.map(file => {
+      const sizeKB = (file.size / 1024).toFixed(1);
+      // Formatting time neatly
+      const dateStr = new Date(file.created_at).toLocaleString('en-IN', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      return `
+        <tr>
+          <td><strong>${escapeHtml(file.name)}</strong></td>
+          <td>${sizeKB} KB</td>
+          <td>${dateStr}</td>
+          <td><a href="${file.download_url}" target="_blank" rel="noopener noreferrer" class="download-link-btn">&#8595; Download</a></td>
+        </tr>
+      `;
+    }).join('');
+
+  } catch (err) {
+    console.error('Error fetching files:', err.message);
+    tbody.innerHTML = `<tr><td colspan="4" class="no-files-placeholder error-text">Could not load files: ${err.message}</td></tr>`;
+  }
+}
+
+function escapeHtml(text) {
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+  return text.replace(/[&<>"']/g, (m) => map[m]);
 }

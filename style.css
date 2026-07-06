@@ -88,7 +88,7 @@ html {
 
 body {
   font-family: var(--font-family);
-  /* 1. Optimized smooth gradient mesh background instead of CPU-heavy Canvas */
+  /* Optimized smooth gradient mesh background instead of CPU-heavy Canvas */
   background: linear-gradient(-45deg, hsl(210, 40%, 94%), hsl(210, 40%, 97%), hsl(220, 95%, 97%), hsl(190, 90%, 96%));
   background-size: 400% 400%;
   animation: meshBG 18s ease infinite;
@@ -1403,7 +1403,7 @@ body.dark-theme .services-list li {
 }
 
 /* ==========================================================================
-   9. APPLICATION MODULES TABLE
+   9. APPLICATION MODULES & FILES TABLE
    ========================================================================== */
 .table-responsive {
   width: 100%;
@@ -1456,27 +1456,120 @@ body.dark-theme .modules-table tbody tr:hover {
   color: var(--text-main);
 }
 
-/* Module badges */
-.module-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 50px;
+.no-files-placeholder {
+  text-align: center;
+  font-style: italic;
+  padding: 30px !important;
+  color: var(--text-muted);
 }
 
-.auth-badge { background-color: var(--primary-light); color: var(--primary); }
-.upload-badge { background-color: var(--success-light); color: var(--success); }
-.download-badge { background-color: rgba(14, 165, 233, 0.1); color: hsl(190, 90%, 45%); }
-.folder-badge { background-color: var(--warning-light); color: var(--warning); }
-.share-badge { background-color: rgba(168, 85, 247, 0.1); color: hsl(280, 80%, 55%); }
-.search-badge { background-color: rgba(236, 72, 153, 0.1); color: hsl(320, 80%, 55%); }
-.notify-badge { background-color: rgba(234, 179, 8, 0.1); color: hsl(45, 90%, 50%); }
-.analytics-badge { background-color: rgba(20, 184, 166, 0.1); color: hsl(170, 80%, 45%); }
+.download-link-btn {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px dashed var(--primary);
+}
 
-body.dark-theme .download-badge { color: hsl(190, 90%, 55%); }
-body.dark-theme .share-badge { color: hsl(280, 80%, 65%); }
-body.dark-theme .search-badge { color: hsl(320, 80%, 65%); }
+.download-link-btn:hover {
+  color: var(--primary-hover);
+  border-bottom-style: solid;
+}
+
+/* ==========================================================================
+   11. CLOUD FILE UPLOAD ZONE
+   ========================================================================== */
+.cloud-upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px dashed var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  background-color: rgba(0, 0, 0, 0.005);
+  margin-bottom: 24px;
+  gap: 16px;
+  transition: border-color var(--transition-normal);
+}
+
+body.dark-theme .cloud-upload-zone {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.cloud-upload-zone:hover {
+  border-color: var(--primary);
+}
+
+.upload-icon-circle {
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--primary);
+  background-color: var(--primary-light);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.upload-zone-text h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.upload-zone-text p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.upload-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.hidden-file-input + label {
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-light);
+  background-color: var(--white);
+  color: var(--text-main);
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.hidden-file-input + label:hover {
+  background-color: var(--border-light);
+}
+
+.upload-status-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.upload-status-text.success-text {
+  color: var(--success);
+}
+
+.upload-status-text.error-text {
+  color: var(--danger);
+}
 
 /* ==========================================================================
    FORM & CONTACT BLOCK (Grid split)
@@ -1527,7 +1620,6 @@ body.dark-theme .search-badge { color: hsl(320, 80%, 65%); }
   align-items: start;
 }
 
-/* 3-Column layout helper for DOB, Age and Time */
 .form-row-three {
   display: grid;
   grid-template-columns: 1.2fr 0.9fr 0.9fr;
@@ -1574,7 +1666,6 @@ body.dark-theme .form-group textarea {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Remove default spin buttons from number inputs */
 .form-group input[type="number"]::-webkit-outer-spin-button,
 .form-group input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -1592,7 +1683,6 @@ body.dark-theme .form-group textarea {
   resize: vertical;
 }
 
-/* Form Input Validation Error Message styling */
 .error-msg {
   font-size: 0.725rem;
   font-weight: 600;
@@ -1606,7 +1696,6 @@ body.dark-theme .form-group textarea {
   animation: slide-in-top 0.2s ease-out;
 }
 
-/* Input validation states */
 .input-error {
   border-color: var(--danger) !important;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
@@ -1617,7 +1706,6 @@ body.dark-theme .form-group textarea {
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
 }
 
-/* Radio & Checkbox buttons alignment */
 .radio-group-container,
 .checkbox-group-container {
   display: flex;
@@ -1786,7 +1874,6 @@ body.dark-theme #editable-notes {
   box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
-/* contenteditable placeholder helper */
 #editable-notes:empty::before {
   content: attr(placeholder);
   color: var(--text-muted);
