@@ -10,7 +10,8 @@ const supabaseKey = 'sb_publishable_GuIabkO0pJUd4bboVSKliQ_EhgxgLvN';
 let supabase = null;
 
 if (window.supabase) {
-  supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+  const { createClient } = window.supabase;
+  supabase = createClient(supabaseUrl, supabaseKey);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
