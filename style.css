@@ -75,7 +75,6 @@ body:not(.dark-theme) {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* Smooth transitions for theme switches and hover glows */
   transition: background-color var(--transition-normal), color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-fast);
 }
 
@@ -498,14 +497,14 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 }
 
 /* ==========================================================================
-   APP BODY & SIDEBAR
+   APP BODY & SIDEBAR (aside semantic upgrade)
    ========================================================================== */
 .app-body {
   display: flex;
   flex: 1;
 }
 
-/* 2. Navigation Sidebar */
+/* 2. Navigation Sidebar as HTML5 <aside> */
 .app-sidebar {
   width: var(--sidebar-width);
   background-color: var(--bg-card);
@@ -521,6 +520,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   top: var(--header-height);
   height: calc(100vh - var(--header-height));
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.01);
+  z-index: 10;
 }
 
 .sidebar-section-label {
@@ -981,7 +981,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 }
 
 /* ==========================================================================
-   4. DASHBOARD STATISTICS (Premium Cards outline glow)
+   4. DASHBOARD STATISTICS
    ========================================================================== */
 .stats-grid {
   display: grid;
@@ -1066,7 +1066,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 }
 
 /* ==========================================================================
-   5. INTERACTIVE FEATURE ORBIT MAP (Reference 1 & 3 concepts)
+   5. INTERACTIVE FEATURE ORBIT MAP
    ========================================================================== */
 .orbit-section-card {
   overflow: hidden;
@@ -1087,7 +1087,6 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   margin: 0 auto;
 }
 
-/* Central core hub */
 .core-hub {
   position: absolute;
   top: 50%;
@@ -1130,13 +1129,11 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   margin-top: 4px;
 }
 
-/* Pulse trigger for central core update */
 .core-hub.pulse-hub {
   transform: translate(-50%, -50%) scale(1.08);
   box-shadow: 0 0 40px var(--primary);
 }
 
-/* Orbiting Nodes (Li items positioned around center) */
 .orbit-list {
   list-style: none;
 }
@@ -1163,7 +1160,6 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   line-height: 1;
 }
 
-/* Hover and active nodes layout (Reference 1 concept) */
 .orbit-node:hover, .orbit-node.active {
   background-color: var(--primary);
   border-color: var(--border-focus);
@@ -1176,7 +1172,6 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   transform: scale(1.05);
 }
 
-/* Staggered float animations for floating node feel */
 .orbit-node:nth-child(1) { animation: float-node 4s ease-in-out infinite; }
 .orbit-node:nth-child(2) { animation: float-node 4s ease-in-out infinite 0.5s; }
 .orbit-node:nth-child(3) { animation: float-node 4s ease-in-out infinite 1s; }
@@ -1187,7 +1182,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 .orbit-node:nth-child(8) { animation: float-node 4s ease-in-out infinite 3.5s; }
 
 /* ==========================================================================
-   6. SERVICES SECTION (List layouts)
+   6. SERVICES SECTION
    ========================================================================== */
 .lists-container-grid {
   display: grid;
@@ -1228,7 +1223,6 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   margin-bottom: 20px;
 }
 
-/* Services list custom bubbles */
 .services-list {
   list-style: none;
   counter-reset: services-counter;
@@ -1395,11 +1389,23 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   align-items: start;
 }
 
+/* 3-Column layout helper for DOB, Age and Time */
+.form-row-three {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  gap: 16px;
+  align-items: start;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
   position: relative;
+}
+
+.form-group.full-width-group {
+  grid-column: span 2;
 }
 
 .form-group label {
@@ -1413,6 +1419,8 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 .form-group input[type="tel"],
 .form-group input[type="password"],
 .form-group input[type="date"],
+.form-group input[type="number"],
+.form-group input[type="time"],
 .form-group textarea {
   font-family: var(--font-family);
   font-size: 0.875rem;
@@ -1421,6 +1429,13 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   border: 1px solid var(--border-light);
   background-color: rgba(255, 255, 255, 0.02);
   color: var(--text-main);
+}
+
+/* Remove default spin buttons from number inputs for clean SaaS styling */
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .form-group input:focus,
@@ -1459,15 +1474,18 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
 }
 
-/* Radio buttons alignment */
-.radio-group-container {
+/* Radio & Checkbox buttons alignment */
+.radio-group-container,
+.checkbox-group-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
   padding: 9px 0;
 }
 
-.radio-label {
+.radio-label,
+.checkbox-label {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1477,10 +1495,12 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   cursor: pointer;
 }
 
-.radio-label input[type="radio"] {
+.radio-label input[type="radio"],
+.checkbox-label input[type="checkbox"] {
   accent-color: var(--primary);
   width: 16px;
   height: 16px;
+  cursor: pointer;
 }
 
 /* Actions buttons styling with 15. CSS Transitions */
@@ -1490,7 +1510,7 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   margin-top: 8px;
 }
 
-.btn-primary, .btn-secondary {
+.btn-primary, .btn-secondary, .btn-cancel {
   font-family: var(--font-family);
   font-size: 0.875rem;
   font-weight: 600;
@@ -1526,8 +1546,100 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   transform: translateY(-2px);
 }
 
-.btn-primary:active, .btn-secondary:active {
+.btn-cancel {
+  background-color: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.btn-cancel:hover {
+  background-color: var(--danger-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+.btn-primary:active, .btn-secondary:active, .btn-cancel:active {
   transform: translateY(0);
+}
+
+/* ==========================================================================
+   12. EDITABLE AREA COMMENTS NOTEPAD
+   ========================================================================== */
+.contact-notepad-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.notepad-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.notepad-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 32px var(--primary-glow);
+}
+
+.notepad-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.notepad-icon {
+  font-size: 1.25rem;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.notepad-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.notepad-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+#editable-notes {
+  border: 1px dashed var(--border-light);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  min-height: 130px;
+  max-height: 250px;
+  background-color: rgba(255, 255, 255, 0.01);
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-y: auto;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+#editable-notes:focus {
+  border-color: var(--border-focus);
+  background-color: var(--white);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+/* contenteditable placeholder helper */
+#editable-notes:empty::before {
+  content: attr(placeholder);
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 /* ==========================================================================
@@ -1677,6 +1789,14 @@ body.dark-theme ::-webkit-scrollbar-thumb {
 
 .footer-center {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-institute {
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .footer-socials {
@@ -1958,6 +2078,15 @@ body.dark-theme ::-webkit-scrollbar-thumb {
   .form-row-two {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .form-row-three {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-group.full-width-group {
+    grid-column: auto;
   }
 
   .form-card, .contact-card {

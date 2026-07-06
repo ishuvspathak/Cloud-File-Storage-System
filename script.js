@@ -1,7 +1,7 @@
 /**
  * Cloud File Storage System - Dashboard Interactivity & Animation Logic
  * Student: Ishu Pathak (Reg No: 2303717620521021)
- * Week 2 Web Technology Lab Assignment - Portfolio Edition
+ * Week 3 Web Technology Lab Assignment - HTML5 Forms & Semantics
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,7 +37,6 @@ function initParticleCanvas() {
   window.addEventListener('resize', resize);
   resize();
   
-  // Generate particle coordinate arrays
   const particleCount = Math.min(80, Math.floor((width * height) / 18000));
   for (let i = 0; i < particleCount; i++) {
     particles.push({
@@ -63,7 +62,6 @@ function initParticleCanvas() {
   function animate() {
     ctx.clearRect(0, 0, width, height);
     
-    // Toggle particle colors dynamically based on current theme class
     const isDark = document.body.classList.contains('dark-theme');
     const pColor = isDark ? 'rgba(0, 242, 254, 0.25)' : 'rgba(15, 98, 254, 0.15)';
     const lColor = isDark ? 'rgba(0, 242, 254, 0.05)' : 'rgba(15, 98, 254, 0.04)';
@@ -75,7 +73,6 @@ function initParticleCanvas() {
       p.x += p.vx;
       p.y += p.vy;
       
-      // Bounce boundaries
       if (p.x < 0 || p.x > width) p.vx *= -1;
       if (p.y < 0 || p.y > height) p.vy *= -1;
       
@@ -84,7 +81,6 @@ function initParticleCanvas() {
       ctx.fillStyle = p.color;
       ctx.fill();
       
-      // Faint lines between nearby floating nodes
       for (let j = i + 1; j < particles.length; j++) {
         const p2 = particles[j];
         const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
@@ -98,7 +94,6 @@ function initParticleCanvas() {
         }
       }
       
-      // Interactive lines connecting to user mouse position
       if (mouse.x !== null) {
         const mDist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
         if (mDist < mouse.radius) {
@@ -159,7 +154,6 @@ function initThemeSwitcher() {
 
   const storedTheme = localStorage.getItem('theme');
   
-  // Set dark theme as default on first visit for premium developer aesthetic
   if (storedTheme === 'light') {
     document.body.classList.remove('dark-theme');
     updateThemeIcon(false);
@@ -172,7 +166,7 @@ function initThemeSwitcher() {
     const isDarkNow = document.body.classList.toggle('dark-theme');
     localStorage.setItem('theme', isDarkNow ? 'dark' : 'light');
     updateThemeIcon(isDarkNow);
-    initStatsCounters(); // Refresh stats animation on color scheme transition
+    initStatsCounters(); 
   });
 
   function updateThemeIcon(isDark) {
@@ -205,7 +199,7 @@ function initStatsCounters() {
     function step(currentTime) {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const easeProgress = progress * (2 - progress); // easeOutQuad
+      const easeProgress = progress * (2 - progress); 
       const currentValue = Math.floor(easeProgress * stat.target);
       
       let formattedValue = currentValue.toLocaleString('en-IN');
@@ -338,7 +332,7 @@ function initNotificationPanel() {
 }
 
 /* ==========================================================================
-   6. REGISTRATION FORM VALIDATION
+   6. REGISTRATION FORM VALIDATION (Upgraded with HTML5 elements)
    ========================================================================== */
 function initFormValidation() {
   const form = document.querySelector('.register-form');
@@ -350,6 +344,8 @@ function initFormValidation() {
     { id: 'reg-phone', validate: validatePhone },
     { id: 'reg-password', validate: validatePassword },
     { id: 'reg-dob', validate: validateDOB },
+    { id: 'reg-age', validate: validateAge },
+    { id: 'reg-time', validate: validateTime },
     { id: 'reg-address', validate: validateAddress }
   ];
 
@@ -362,9 +358,41 @@ function initFormValidation() {
     });
   });
 
+  // Cancel Button Action Handler
+  const cancelBtn = document.getElementById('btn-cancel');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      if (confirm('Cancel registration? All entered data will be reset.')) {
+        form.reset();
+        // Remove error classes
+        fields.forEach(f => {
+          const input = document.getElementById(f.id);
+          if (input) input.classList.remove('input-error', 'input-success');
+          const errSpan = document.getElementById(`${f.id}-error`);
+          if (errSpan) {
+            errSpan.textContent = '';
+            errSpan.classList.remove('visible');
+          }
+        });
+        const genderError = document.getElementById('gender-error');
+        if (genderError) {
+          genderError.textContent = '';
+          genderError.classList.remove('visible');
+        }
+        const skillsError = document.getElementById('skills-error');
+        if (skillsError) {
+          skillsError.textContent = '';
+          skillsError.classList.remove('visible');
+        }
+        window.location.hash = '#welcome';
+      }
+    });
+  }
+
   form.addEventListener('submit', (e) => {
     let isFormValid = true;
 
+    // Validate standard fields
     fields.forEach(field => {
       const input = document.getElementById(field.id);
       if (input) {
@@ -373,6 +401,7 @@ function initFormValidation() {
       }
     });
 
+    // Validate gender selection (Radio buttons)
     const genderRadios = document.querySelectorAll('input[name="gender"]');
     const genderError = document.getElementById('gender-error');
     let genderSelected = false;
@@ -386,6 +415,22 @@ function initFormValidation() {
       showError(genderError, 'Please select your gender');
     } else {
       clearError(genderError);
+    }
+
+    // Validate skills selection (Checkboxes)
+    const skillsCheckboxes = document.querySelectorAll('input[name="skills"]');
+    const skillsError = document.getElementById('skills-error');
+    let skillSelected = false;
+
+    skillsCheckboxes.forEach(checkbox => {
+      if (checkbox.checked) skillSelected = true;
+    });
+
+    if (!skillSelected) {
+      isFormValid = false;
+      showError(skillsError, 'Please check at least one skill or interest');
+    } else {
+      clearError(skillsError);
     }
 
     if (!isFormValid) {
@@ -410,8 +455,11 @@ function initFormValidation() {
     });
     const genderError = document.getElementById('gender-error');
     if (genderError) clearError(genderError);
+    const skillsError = document.getElementById('skills-error');
+    if (skillsError) clearError(skillsError);
   });
 
+  /* Individual Validation Functions */
   function validateName(input) {
     const errSpan = document.getElementById('reg-name-error');
     const val = input.value.trim();
@@ -473,21 +521,41 @@ function initFormValidation() {
     
     const dobDate = new Date(val);
     const today = new Date();
-    let age = today.getFullYear() - dobDate.getFullYear();
-    const monthDiff = today.getMonth() - dobDate.getMonth();
     
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
-      age--;
-    }
-
     if (dobDate > today) {
       showError(errSpan, 'Date of Birth cannot be in the future', input);
       return false;
-    } else if (age < 16) {
-      showError(errSpan, 'You must be at least 16 years old to register', input);
-      return false;
     }
 
+    showSuccess(errSpan, input);
+    return true;
+  }
+
+  function validateAge(input) {
+    const errSpan = document.getElementById('reg-age-error');
+    const val = parseInt(input.value, 10);
+    
+    if (isNaN(val)) {
+      showError(errSpan, 'Please enter a numeric age', input);
+      return false;
+    } else if (val < 16 || val > 100) {
+      showError(errSpan, 'Age must be between 16 and 100', input);
+      return false;
+    }
+    
+    showSuccess(errSpan, input);
+    return true;
+  }
+
+  function validateTime(input) {
+    const errSpan = document.getElementById('reg-time-error');
+    const val = input.value;
+    
+    if (!val) {
+      showError(errSpan, 'Please select a preferred meeting time', input);
+      return false;
+    }
+    
     showSuccess(errSpan, input);
     return true;
   }
@@ -594,13 +662,9 @@ function initOrbitMap() {
   
   nodes.forEach(node => {
     node.addEventListener('mouseenter', () => {
-      // Clear active styling from other nodes
       nodes.forEach(n => n.classList.remove('active'));
-      
-      // Set hovered node active
       node.classList.add('active');
       
-      // Update central core details
       const title = node.getAttribute('data-title');
       const desc = node.getAttribute('data-desc');
       
