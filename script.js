@@ -590,11 +590,18 @@ function initScrollToTop() {
   const scrollTopBtn = document.getElementById('scroll-top-btn');
   if (!scrollTopBtn) return;
 
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      scrollTopBtn.classList.add('visible');
-    } else {
-      scrollTopBtn.classList.remove('visible');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
   });
 
@@ -613,40 +620,47 @@ function initScrollspy() {
   const sections = document.querySelectorAll('section[id], article[id]');
   const navLinks = document.querySelectorAll('.top-nav-item');
 
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    let currentSectionId = '';
-    const scrollPosition = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        let currentSectionId = '';
+        const scrollPosition = window.scrollY;
 
-    // Check which section is in view
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      if (scrollPosition >= (sectionTop - 140)) {
-        currentSectionId = section.getAttribute('id');
-      }
-    });
+        // Check which section is in view
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (scrollPosition >= (sectionTop - 150)) {
+            currentSectionId = section.getAttribute('id');
+          }
+        });
 
-    if (currentSectionId) {
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        const href = link.getAttribute('href');
-        
-        if (currentSectionId === 'welcome') {
-          // Differentiate between Home (top slider) and About (project description)
-          if (scrollPosition < 400) {
-            if (link.getAttribute('data-tooltip') === 'Go to Homepage') {
-              link.classList.add('active');
+        if (currentSectionId) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            
+            if (currentSectionId === 'welcome') {
+              // Differentiate between Home (top slider) and About (project description)
+              if (scrollPosition < 400) {
+                if (link.getAttribute('data-tooltip') === 'Go to Homepage') {
+                  link.classList.add('active');
+                }
+              } else {
+                if (link.getAttribute('data-tooltip') === 'Learn about Gourmet Haven Cloud') {
+                  link.classList.add('active');
+                }
+              }
+            } else {
+              if (href === `#${currentSectionId}`) {
+                link.classList.add('active');
+              }
             }
-          } else {
-            if (link.getAttribute('data-tooltip') === 'Learn about Gourmet Haven Cloud') {
-              link.classList.add('active');
-            }
-          }
-        } else {
-          if (href === `#${currentSectionId}`) {
-            link.classList.add('active');
-          }
+          });
         }
+        ticking = false;
       });
+      ticking = true;
     }
   });
 }
