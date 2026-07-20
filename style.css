@@ -2,40 +2,39 @@
    DESIGN SYSTEM & VARIABLES (Light Mode Default, Dark Mode Optional)
    ========================================================================== */
 :root {
-  /* Brand Color Palette - Advisr Red & Slate Gray */
-  --primary: hsl(0, 85%, 53%);         /* Coral Red */
-  --primary-hover: hsl(0, 85%, 45%);
-  --primary-light: rgba(229, 43, 42, 0.06);
-  --primary-glow: rgba(229, 43, 42, 0.15);
+  /* Brand Color Palette - Peaceful Earth Tan & Beige */
+  --primary: hsl(28, 25%, 52%);         /* Aesthetic Sand Tan */
+  --primary-hover: hsl(28, 25%, 44%);
+  --primary-light: rgba(168, 146, 124, 0.08);
+  --primary-glow: rgba(168, 146, 124, 0.15);
 
   /* Status Colors */
-  --success: hsl(142, 76%, 36%);
-  --success-light: hsl(142, 76%, 95%);
-  --warning: hsl(38, 92%, 50%);
-  --warning-light: hsl(38, 92%, 95%);
-  --danger: hsl(350, 89%, 60%);
-  --danger-light: hsl(350, 89%, 96%);
+  --success: hsl(142, 70%, 36%);
+  --success-light: hsl(142, 70%, 95%);
+  --warning: hsl(38, 85%, 50%);
+  --warning-light: hsl(38, 85%, 95%);
+  --danger: hsl(350, 80%, 55%);
+  --danger-light: hsl(350, 80%, 96%);
 
-  /* Advisr Theme Light Settings */
-  --white: hsl(0, 0%, 100%);             /* Pure white base */
-  --bg-app: hsl(210, 30%, 97%);          /* Light gray/blue base */
-  --bg-card: rgba(255, 255, 255, 0.85);   /* White card */
-  --text-main: hsl(215, 45%, 15%);       /* Dark slate text */
-  --text-muted: hsl(215, 15%, 45%);      /* Muted gray */
-  --border-light: rgba(229, 43, 42, 0.08);/* Faint red/gray border */
-  --border-focus: hsl(0, 85%, 53%);
+  /* Advisr Theme Light Settings (Peaceful Beige/Cream) */
+  --white: hsl(0, 0%, 100%);             
+  --bg-app: hsl(35, 35%, 97%);          /* Calming Cream Background (#FAF7F2) */
+  --bg-card: rgba(255, 255, 255, 0.85);   /* White Card Back */
+  --text-main: hsl(24, 15%, 22%);       /* Warm Espresso (#3B3530) */
+  --text-muted: hsl(28, 10%, 48%);      /* Soft Muted Sand */
+  --border-light: rgba(168, 146, 124, 0.12); /* Faint Tan Border */
+  --border-focus: hsl(28, 25%, 52%);
 
   /* Layout Constants */
-  --sidebar-width: 260px;
   --header-height: 70px;
 
   /* Typography */
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Elevation & Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 8px 32px 0 rgba(229, 43, 42, 0.03);
-  --shadow-lg: 0 15px 45px rgba(229, 43, 42, 0.05);
+  --shadow-sm: 0 2px 8px rgba(168, 146, 124, 0.04);
+  --shadow-md: 0 8px 32px 0 rgba(168, 146, 124, 0.05);
+  --shadow-lg: 0 15px 45px rgba(168, 146, 124, 0.08);
 
   /* Borders & Radius */
   --radius-sm: 8px;
@@ -47,24 +46,24 @@
   --transition-normal: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Midnight Dark Theme overrides */
+/* Midnight Dark Theme overrides (Warm Obsidian/Espresso) */
 body.dark-theme {
-  --white: hsl(0, 0%, 5%);          /* Dark Slate/Black card */
-  --bg-app: hsl(0, 0%, 2%);           /* Deep pitch black */
-  --bg-card: rgba(12, 12, 12, 0.75);     /* Black glassmorphism */
-  --text-main: hsl(0, 0%, 98%);       /* Pure white text */
-  --text-muted: hsl(0, 0%, 65%);      /* Faint grey */
+  --white: hsl(24, 10%, 8%);          /* Dark Coffee Card */
+  --bg-app: hsl(24, 10%, 4%);           /* Deep Obsidian/Espresso Black (#0F0E0D) */
+  --bg-card: rgba(24, 20, 18, 0.75);     /* Charcoal warm glass */
+  --text-main: hsl(35, 20%, 94%);       /* Warm Linen Off-White */
+  --text-muted: hsl(28, 10%, 65%);      /* Warm Sand Grey */
   --border-light: rgba(255, 255, 255, 0.06); 
-  --border-focus: hsl(0, 85%, 55%);
-  --primary: hsl(0, 85%, 53%);         /* Coral Red */
-  --primary-hover: hsl(0, 85%, 45%);
-  --primary-light: rgba(229, 43, 42, 0.1); 
-  --primary-glow: rgba(229, 43, 42, 0.35);
-  --success: hsl(142, 76%, 45%);
+  --border-focus: hsl(28, 25%, 55%);
+  --primary: hsl(28, 25%, 55%);         /* Glowing Tan */
+  --primary-hover: hsl(28, 25%, 45%);
+  --primary-light: rgba(193, 174, 159, 0.1); 
+  --primary-glow: rgba(193, 174, 159, 0.35);
+  --success: hsl(142, 70%, 45%);
   --success-light: rgba(16, 185, 129, 0.1);
-  --warning: hsl(38, 92%, 50%);
+  --warning: hsl(38, 85%, 50%);
   --warning-light: rgba(245, 158, 11, 0.1);
-  --danger: hsl(350, 89%, 60%);
+  --danger: hsl(350, 80%, 55%);
   --danger-light: rgba(239, 68, 68, 0.1);
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
@@ -89,7 +88,7 @@ html {
 body {
   font-family: var(--font-family);
   /* Optimized smooth gradient mesh background instead of CPU-heavy Canvas */
-  background: linear-gradient(-45deg, hsl(210, 30%, 96%), hsl(0, 0%, 99%), hsl(0, 85%, 98%), hsl(210, 30%, 95%));
+  background: linear-gradient(-45deg, hsl(35, 35%, 96%), hsl(35, 25%, 98%), hsl(28, 20%, 96%), hsl(35, 30%, 95%));
   background-size: 400% 400%;
   animation: meshBG 18s ease infinite;
   color: var(--text-main);
@@ -100,7 +99,7 @@ body {
 }
 
 body.dark-theme {
-  background: linear-gradient(-45deg, hsl(0, 0%, 2%), hsl(0, 85%, 3%), hsl(0, 0%, 4%), hsl(0, 85%, 1%));
+  background: linear-gradient(-45deg, hsl(24, 10%, 4%), hsl(28, 20%, 5%), hsl(24, 10%, 6%), hsl(28, 15%, 3%));
   background-size: 400% 400%;
   animation: meshBG 18s ease infinite;
 }
@@ -599,113 +598,88 @@ body.dark-theme .notify-icon-wrapper {
 }
 
 /* ==========================================================================
-   APP BODY & SIDEBAR 
+   APP BODY & TOP NAVIGATION (Aesthetic horizontal nav layout)
    ========================================================================== */
-.app-body {
-  display: flex;
-  flex: 1;
+.sticky-nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 16px rgba(168, 146, 124, 0.06);
 }
 
-/* Navigation Sidebar */
-.app-sidebar {
-  width: var(--sidebar-width);
+.top-nav-bar {
   background-color: var(--bg-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-right: 1px solid var(--border-light);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px 16px;
-  flex-shrink: 0;
-  position: sticky;
-  top: var(--header-height);
-  height: calc(100vh - var(--header-height));
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.01);
-  z-index: 10;
+  border-bottom: 1px solid var(--border-light);
+  padding: 10px 24px;
 }
 
-.sidebar-section-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  padding-left: 12px;
-  margin-bottom: 12px;
-}
-
-.nav-menu {
+.top-nav-menu {
   list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  flex-wrap: wrap;
 }
 
-.nav-item {
+.top-nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 8px;
+  padding: 8px 14px;
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
 }
 
-.nav-icon {
-  font-size: 1.1rem;
-  display: inline-block;
-  text-align: center;
-  width: 20px;
-}
-
-.nav-item:hover {
+.top-nav-item:hover {
   background-color: var(--primary-light);
   color: var(--primary);
-  transform: translateX(6px);
-  box-shadow: 0 2px 8px var(--primary-glow);
+  transform: translateY(-2px) scale(1.02);
 }
 
-.nav-item.active {
+.top-nav-item.active {
   background-color: var(--primary);
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 4px 14px var(--primary-glow);
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
 
-.nav-item.active:hover {
-  transform: none;
-  background-color: var(--primary);
-  color: #fff;
+.top-nav-separator {
+  color: var(--border-light);
+  user-select: none;
+  margin: 0 4px;
 }
 
-.nav-separator hr {
-  border: 0;
-  height: 1px;
-  background-color: var(--border-light);
-  margin: 10px 0;
-}
-
-.logout-btn:hover {
+.top-nav-menu .logout-btn:hover {
   background-color: var(--danger-light);
   color: var(--danger);
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
 }
 
-/* Sidebar Info Panel */
-.sidebar-footer {
-  background-color: rgba(0, 0, 0, 0.02);
-  padding: 12px;
-  border-radius: var(--radius-md);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border: 1px solid var(--border-light);
+/* Hide old sidebar elements */
+.app-sidebar {
+  display: none !important;
+}
+
+.app-body {
+  display: block;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.app-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100%;
 }
 
 body.dark-theme .sidebar-footer {

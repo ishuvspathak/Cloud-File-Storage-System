@@ -42,6 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(`Error initializing module [${m.name}]:`, err);
     }
   });
+
+  // Simple active top navigation item highlights (Assignment 5)
+  const navItems = document.querySelectorAll('.top-nav-item');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      navItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
 });
 
 /* ==========================================================================

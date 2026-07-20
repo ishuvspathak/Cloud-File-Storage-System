@@ -21,165 +21,159 @@
   <!-- Top-level main application layout -->
   <div class="app-container">
 
-    <!-- 1. Header (Top Bar with branding, search, clock, notification, theme switcher) -->
-    <header class="app-header">
-      <div class="header-left animate-slide-in-top">
-        <img class="app-logo" src="assets/logo.svg" alt="Cloud File Storage System Logo">
-        <div class="logo-text">
-          <h1>Cloud File Storage System</h1>
-          <!-- Typing effect tagline -->
-          <p class="tagline typing-tagline">Secure. Store. Access Anywhere.</p>
-        </div>
-      </div>
-      
-      <div class="header-center">
-        <div class="search-bar">
-          <span class="search-icon">&#128269;</span>
-          <input type="text" placeholder="Search files, folders, backups..." aria-label="Search">
-        </div>
-      </div>
-
-      <div class="header-right animate-slide-in-top">
-        <!-- Live Clock Display -->
-        <div id="live-clock" class="live-clock">
-          <span class="clock-date">Loading date...</span>
-          <span class="clock-separator">|</span>
-          <span class="clock-time">00:00:00 AM</span>
-        </div>
-
-        <!-- 10. Theme Switcher Toggle Button -->
-        <button id="theme-toggle-btn" class="btn-theme-toggle" aria-label="Toggle Theme">
-          <span class="theme-btn-icon">&#9790;</span>
-          <span class="theme-btn-text">Dark Mode</span>
-        </button>
-
-        <!-- 11. Notification Bell Indicator -->
-        <div class="notify-icon-wrapper" id="notify-trigger">
-          <span class="bell-icon">&#128276;</span>
-          <!-- Dynamic Notification Badge -->
-          <span class="badge" id="notify-badge-count">3</span>
-        </div>
-
-        <!-- 11. Notification Drawer Panel -->
-        <div id="notification-panel" class="notification-panel">
-          <div class="notify-panel-header">
-            <h5>System Notifications</h5>
-            <button id="close-notify-panel" class="close-notify-btn" aria-label="Close notification panel">&times;</button>
+    <!-- Sticky Top Navigation Block (Requirement 2 & Top Layout update) -->
+    <div class="sticky-nav-container">
+      <header class="app-header">
+        <div class="header-left animate-slide-in-top">
+          <img class="app-logo" src="assets/logo.svg" alt="Cloud File Storage System Logo">
+          <div class="logo-text">
+            <h1>Cloud File Storage System</h1>
+            <!-- Typing effect tagline -->
+            <p class="tagline typing-tagline">Secure. Store. Access Anywhere.</p>
           </div>
-          <ul class="notification-list">
-            <li class="notify-item warning-notify">
-              <span class="notify-bullet">&#9888;</span>
-              <div>
-                <strong>Warning:</strong> Storage volume node-3 has reached 82% capacity.
-                <p class="notify-time-ago">5 mins ago</p>
-              </div>
-            </li>
-            <li class="notify-item success-notify">
-              <span class="notify-bullet">&#10004;</span>
-              <div>
-                <strong>Success:</strong> Weekly continuous snapshot backup completed successfully.
-                <p class="notify-time-ago">2 hours ago</p>
-              </div>
-            </li>
-            <li class="notify-item info-notify">
-              <span class="notify-bullet">&#8505;</span>
-              <div>
-                <strong>Log:</strong> Sync login detected from Coimbatore, Tamil Nadu.
-                <p class="notify-time-ago">4 hours ago</p>
-              </div>
-            </li>
-          </ul>
-          <div class="notify-panel-footer">
-            <button id="clear-notify-btn" class="btn-clear-notifications">Clear All Alert Logs</button>
+        </div>
+        
+        <div class="header-center">
+          <div class="search-bar">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" placeholder="Search files, folders, backups..." aria-label="Search">
           </div>
         </div>
 
-        <!-- 10. User Profile Dropdown Menu Trigger & Panel -->
-        <div class="profile-menu-container" id="profile-trigger">
-          <div class="student-badge clickable">
-            <span class="avatar-placeholder" id="avatar-letters">IP</span>
-            <div class="student-info">
-              <h6 class="student-name" id="display-user-name">Ishu Pathak</h6>
-              <p class="reg-number">Reg: 2303717620521021</p>
+        <div class="header-right animate-slide-in-top">
+          <!-- Live Clock Display -->
+          <div id="live-clock" class="live-clock">
+            <span class="clock-date">Loading date...</span>
+            <span class="clock-separator">|</span>
+            <span class="clock-time">00:00:00 AM</span>
+          </div>
+
+          <!-- 10. Theme Switcher Toggle Button -->
+          <button id="theme-toggle-btn" class="btn-theme-toggle" aria-label="Toggle Theme">
+            <span class="theme-btn-icon">&#9790;</span>
+            <span class="theme-btn-text">Dark Mode</span>
+          </button>
+
+          <!-- 11. Notification Bell Indicator -->
+          <div class="notify-icon-wrapper" id="notify-trigger">
+            <span class="bell-icon">&#128276;</span>
+            <!-- Dynamic Notification Badge -->
+            <span class="badge" id="notify-badge-count">3</span>
+          </div>
+
+          <!-- 11. Notification Drawer Panel -->
+          <div id="notification-panel" class="notification-panel">
+            <div class="notify-panel-header">
+              <h5>System Notifications</h5>
+              <button id="close-notify-panel" class="close-notify-btn" aria-label="Close notification panel">&times;</button>
             </div>
-            <span class="dropdown-chevron">&#9662;</span>
-          </div>
-          <!-- Profile Dropdown Menu List -->
-          <div class="profile-dropdown-panel" id="profile-dropdown">
-            <ul>
-              <li><a href="#registration" id="profile-edit-btn">&#9998; Edit Profile Details</a></li>
-              <li><a href="#" id="profile-switch-btn">&#128257; Switch to Guest Account</a></li>
-              <li><a href="#registration" id="profile-register-btn">&#128100; Register New User</a></li>
-              <li class="menu-divider"></li>
-              <li><a href="#" id="profile-logout-btn" class="logout-action">&#128275; Logout Workspace</a></li>
+            <ul class="notification-list">
+              <li class="notify-item warning-notify">
+                <span class="notify-bullet">&#9888;</span>
+                <div>
+                  <strong>Warning:</strong> Storage volume node-3 has reached 82% capacity.
+                  <p class="notify-time-ago">5 mins ago</p>
+                </div>
+              </li>
+              <li class="notify-item success-notify">
+                <span class="notify-bullet">&#10004;</span>
+                <div>
+                  <strong>Success:</strong> Weekly continuous snapshot backup completed successfully.
+                  <p class="notify-time-ago">2 hours ago</p>
+                </div>
+              </li>
+              <li class="notify-item info-notify">
+                <span class="notify-bullet">&#8505;</span>
+                <div>
+                  <strong>Log:</strong> Sync login detected from Coimbatore, Tamil Nadu.
+                  <p class="notify-time-ago">4 hours ago</p>
+                </div>
+              </li>
             </ul>
+            <div class="notify-panel-footer">
+              <button id="clear-notify-btn" class="btn-clear-notifications">Clear All Alert Logs</button>
+            </div>
           </div>
-        </div>
 
-      </div>
-    </header>
+          <!-- 10. User Profile Dropdown Menu Trigger & Panel -->
+          <div class="profile-menu-container" id="profile-trigger">
+            <div class="student-badge clickable">
+              <span class="avatar-placeholder" id="avatar-letters">IP</span>
+              <div class="student-info">
+                <h6 class="student-name" id="display-user-name">Ishu Pathak</h6>
+                <p class="reg-number">Reg: 2303717620521021</p>
+              </div>
+              <span class="dropdown-chevron">&#9662;</span>
+            </div>
+            <!-- Profile Dropdown Menu List -->
+            <div class="profile-dropdown-panel" id="profile-dropdown">
+              <ul>
+                <li><a href="#registration" id="profile-edit-btn">&#9998; Edit Profile Details</a></li>
+                <li><a href="#" id="profile-switch-btn">&#128257; Switch to Guest Account</a></li>
+                <li><a href="#registration" id="profile-register-btn">&#128100; Register New User</a></li>
+                <li class="menu-divider"></li>
+                <li><a href="#" id="profile-logout-btn" class="logout-action">&#128275; Logout Workspace</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- Center-aligned horizontal top nav menu -->
+      <nav class="top-nav-bar animate-fade-in">
+        <ul class="top-nav-menu">
+          <li>
+            <a href="#welcome" class="top-nav-item active" data-tooltip="Go to Homepage">
+              <span class="nav-icon">&#127968;</span> Home
+            </a>
+          </li>
+          <li>
+            <a href="#welcome" class="top-nav-item" data-tooltip="Learn about Gourmet Haven Cloud">
+              <span class="nav-icon">&#128100;</span> About
+            </a>
+          </li>
+          <li>
+            <a href="#features" class="top-nav-item" data-tooltip="Explore Cloud Features">
+              <span class="nav-icon">&#128188;</span> Features
+            </a>
+          </li>
+          <li>
+            <a href="#cloud-storage-explorer" class="top-nav-item" data-tooltip="Manage Server Nodes">
+              <span class="nav-icon">&#128193;</span> Nodes
+            </a>
+          </li>
+          <li>
+            <a href="#registration" class="top-nav-item" data-tooltip="Enroll Storage account">
+              <span class="nav-icon">&#128221;</span> Enrollment
+            </a>
+          </li>
+          <li>
+            <a href="#storage-sandbox" class="top-nav-item" data-tooltip="Interactive Cloud Sandbox">
+              <span class="nav-icon">&#128449;</span> Analytics
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="top-nav-item" data-tooltip="User Testimonials">
+              <span class="nav-icon">&#128172;</span> Reviews
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="top-nav-item" data-tooltip="Get in touch with support">
+              <span class="nav-icon">&#128222;</span> Contact
+            </a>
+          </li>
+          <li class="top-nav-separator">|</li>
+          <li>
+            <a href="#" class="top-nav-item logout-btn" data-tooltip="Exit secure session">
+              <span class="nav-icon">&#128275;</span> Logout
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <div class="app-body">
-      
-      <!-- 2. Navigation Bar (Sidebar Navigation wrapped in HTML5 aside semantic tag) -->
-      <aside class="app-sidebar animate-fade-in">
-        <div class="sidebar-section-label">Navigation Menu</div>
-        <nav class="sidebar-nav">
-          <ul class="nav-menu">
-            <li>
-              <a href="#welcome" class="nav-item active" data-tooltip="Go to Homepage">
-                <span class="nav-icon">&#127968;</span> Home
-              </a>
-            </li>
-            <li>
-              <a href="#welcome" class="nav-item" data-tooltip="Learn about Gourmet Haven Cloud">
-                <span class="nav-icon">&#128100;</span> About
-              </a>
-            </li>
-            <li>
-              <a href="#features" class="nav-item" data-tooltip="Explore Cloud Features">
-                <span class="nav-icon">&#128188;</span> Features
-              </a>
-            </li>
-            <li>
-              <a href="#cloud-storage-explorer" class="nav-item" data-tooltip="Manage Server Nodes">
-                <span class="nav-icon">&#128193;</span> Nodes
-              </a>
-            </li>
-            <li>
-              <a href="#registration" class="nav-item" data-tooltip="Enroll Storage account">
-                <span class="nav-icon">&#128221;</span> Enrollment
-              </a>
-            </li>
-            <li>
-              <a href="#storage-sandbox" class="nav-item" data-tooltip="Interactive Cloud Sandbox">
-                <span class="nav-icon">&#128449;</span> Analytics
-              </a>
-            </li>
-            <li>
-              <a href="#contact" class="nav-item" data-tooltip="User Testimonials">
-                <span class="nav-icon">&#128172;</span> Reviews
-              </a>
-            </li>
-            <li>
-              <a href="#contact" class="nav-item" data-tooltip="Get in touch with support">
-                <span class="nav-icon">&#128222;</span> Contact
-              </a>
-            </li>
-            <li class="nav-separator"><hr></li>
-            <li>
-              <a href="#" class="nav-item logout-btn" data-tooltip="Exit secure session">
-                <span class="nav-icon">&#128275;</span> Logout
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="sidebar-footer">
-          <span class="system-version">v1.4.0 Stable</span>
-          <span class="encryption-badge">256-bit AES</span>
-        </div>
-      </aside>
 
       <!-- Main Dashboard Content Grid -->
       <main class="app-content">
