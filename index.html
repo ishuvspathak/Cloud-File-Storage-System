@@ -127,38 +127,48 @@
         <nav class="sidebar-nav">
           <ul class="nav-menu">
             <li>
-              <a href="#welcome" class="nav-item active">
+              <a href="#welcome" class="nav-item active" data-tooltip="Go to Homepage">
                 <span class="nav-icon">&#127968;</span> Home
               </a>
             </li>
             <li>
-              <a href="#welcome" class="nav-item">
+              <a href="#welcome" class="nav-item" data-tooltip="Learn about Gourmet Haven Cloud">
                 <span class="nav-icon">&#128100;</span> About
               </a>
             </li>
             <li>
-              <a href="#features" class="nav-item">
+              <a href="#features" class="nav-item" data-tooltip="Explore Cloud Features">
                 <span class="nav-icon">&#128188;</span> Features
               </a>
             </li>
             <li>
-              <a href="#cloud-storage-explorer" class="nav-item">
-                <span class="nav-icon">&#128193;</span> Storage
+              <a href="#cloud-storage-explorer" class="nav-item" data-tooltip="Manage Server Nodes">
+                <span class="nav-icon">&#128193;</span> Nodes
               </a>
             </li>
             <li>
-              <a href="#contact" class="nav-item">
+              <a href="#registration" class="nav-item" data-tooltip="Enroll Storage account">
+                <span class="nav-icon">&#128221;</span> Enrollment
+              </a>
+            </li>
+            <li>
+              <a href="#storage-sandbox" class="nav-item" data-tooltip="Interactive Cloud Sandbox">
+                <span class="nav-icon">&#128449;</span> Analytics
+              </a>
+            </li>
+            <li>
+              <a href="#contact" class="nav-item" data-tooltip="User Testimonials">
+                <span class="nav-icon">&#128172;</span> Reviews
+              </a>
+            </li>
+            <li>
+              <a href="#contact" class="nav-item" data-tooltip="Get in touch with support">
                 <span class="nav-icon">&#128222;</span> Contact
-              </a>
-            </li>
-            <li>
-              <a href="#contact" class="nav-item">
-                <span class="nav-icon">&#9096;</span> Help
               </a>
             </li>
             <li class="nav-separator"><hr></li>
             <li>
-              <a href="#" class="nav-item logout-btn">
+              <a href="#" class="nav-item logout-btn" data-tooltip="Exit secure session">
                 <span class="nav-icon">&#128275;</span> Logout
               </a>
             </li>
@@ -379,15 +389,20 @@
               </div>
             </article>
 
-            <!-- Pending Tasks Card (Pulse warning animation wrapper) -->
-            <article class="stat-card warning-stat animate-pulse">
+            <!-- Storage Occupancy Card (CSS Progress Bar) -->
+            <article class="stat-card warning-stat animate-pulse" data-tooltip="Total server space consumption limits">
               <div class="stat-header">
-                <span class="stat-icon tasks-icon">&#128221;</span>
-                <h4>Pending Tasks</h4>
+                <span class="stat-icon tasks-icon">&#128193;</span>
+                <h4>Storage Capacity</h4>
               </div>
               <div class="stat-body">
-                <span class="stat-value" id="stat-pending-tasks">0</span>
-                <span class="stat-trend trend-neutral">Requires attention</span>
+                <span class="stat-value" id="stat-pending-tasks">64%</span>
+                <span class="stat-trend trend-neutral">6.4 TB / 10 TB Used</span>
+                
+                <!-- CSS Progress Bar (Assignment 5 Requirement) -->
+                <div class="css-progress-container" data-tooltip="Progress: 64% storage capacity reached">
+                  <div class="css-progress-bar"></div>
+                </div>
               </div>
             </article>
           </div>
@@ -487,8 +502,8 @@
             </div>
             <div class="upload-controls">
               <input type="file" id="cloud-file-input" class="hidden-file-input">
-              <label for="cloud-file-input" class="btn-secondary">Choose File</label>
-              <button type="button" id="btn-cloud-upload" class="btn-primary">Upload File to Cloud</button>
+              <label for="cloud-file-input" class="btn-secondary" data-tooltip="Browse local files (Max 50MB)">Choose File</label>
+              <button type="button" id="btn-cloud-upload" class="btn-primary" data-tooltip="Encrypt and stream directly to Supabase cloud">Upload File to Cloud</button>
             </div>
             <!-- Dynamic Status Messages -->
             <p id="upload-status" class="upload-status-text"></p>
@@ -597,15 +612,15 @@
           <!-- 5. Registration Form & 12. Advanced HTML5 Input elements -->
           <section id="registration" class="dashboard-section form-card">
             <div class="form-header">
-              <h2>Registration Portal</h2>
-              <p>Create a storage account and receive 15 GB free encrypted space.</p>
+              <h2>Storage Enrollment Portal</h2>
+              <p>Enroll your sync devices and secure a storage workspace tier.</p>
             </div>
             
             <form action="#" method="POST" class="register-form" novalidate>
               <div class="form-row-two">
                 <div class="form-group">
                   <!-- Name Field (placeholder, required) -->
-                  <label for="reg-name">Full Name</label>
+                  <label for="reg-name">Customer Name</label>
                   <input type="text" id="reg-name" name="name" placeholder="Enter your full name" required>
                   <span class="error-msg" id="reg-name-error"></span>
                 </div>
@@ -627,7 +642,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="reg-password">Password</label>
+                  <label for="reg-password">Access Security PIN / Password</label>
                   <input type="password" id="reg-password" name="password" placeholder="Min. 8 characters" required>
                   <span class="error-msg" id="reg-password-error"></span>
                 </div>
@@ -636,21 +651,21 @@
               <div class="form-row-three">
                 <div class="form-group">
                   <!-- DOB Field (HTML5 date type) -->
-                  <label for="reg-dob">Date of Birth</label>
+                  <label for="reg-dob">Enrollment Date</label>
                   <input type="date" id="reg-dob" name="dob" required>
                   <span class="error-msg" id="reg-dob-error"></span>
                 </div>
 
                 <div class="form-group">
                   <!-- Age Field (HTML5 number type with min and max) -->
-                  <label for="reg-age">Age</label>
-                  <input type="number" id="reg-age" name="age" min="16" max="100" placeholder="Min 16, Max 100" required>
+                  <label for="reg-age">Associated Devices</label>
+                  <input type="number" id="reg-age" name="age" min="1" max="20" placeholder="Min 1, Max 20" required>
                   <span class="error-msg" id="reg-age-error"></span>
                 </div>
 
                 <div class="form-group">
                   <!-- Preferred Time Field (HTML5 time type) -->
-                  <label for="reg-time">Preferred Time</label>
+                  <label for="reg-time">Check-in Sync Time</label>
                   <input type="time" id="reg-time" name="pref_time" required>
                   <span class="error-msg" id="reg-time-error"></span>
                 </div>
@@ -658,19 +673,19 @@
 
               <div class="form-row-two">
                 <div class="form-group">
-                  <label>Gender</label>
+                  <label>Storage Preference Tier</label>
                   <div class="radio-group-container">
                     <label class="radio-label">
-                      <input type="radio" name="gender" value="male">
-                      <span>Male</span>
+                      <input type="radio" name="gender" value="Personal">
+                      <span>Personal Tier</span>
                     </label>
                     <label class="radio-label">
-                      <input type="radio" name="gender" value="female">
-                      <span>Female</span>
+                      <input type="radio" name="gender" value="Team">
+                      <span>Team Tier</span>
                     </label>
                     <label class="radio-label">
-                      <input type="radio" name="gender" value="other">
-                      <span>Other</span>
+                      <input type="radio" name="gender" value="Enterprise">
+                      <span>Enterprise Tier</span>
                     </label>
                   </div>
                   <span class="error-msg" id="gender-error"></span>
@@ -678,22 +693,22 @@
 
                 <div class="form-group">
                   <!-- Skills Checkboxes -->
-                  <label>Cloud Preferences (Skills)</label>
+                  <label>Security & Synced Features</label>
                   <div class="checkbox-group-container">
                     <label class="checkbox-label">
-                      <input type="checkbox" name="skills" value="upload">
-                      <span>Secure Upload</span>
+                      <input type="checkbox" name="skills" value="Backup">
+                      <span>Encrypted Backup</span>
                     </label>
                     <label class="checkbox-label">
-                      <input type="checkbox" name="skills" value="backup">
-                      <span>Cloud Backup</span>
+                      <input type="checkbox" name="skills" value="Sync">
+                      <span>Cloud Sync</span>
                     </label>
                     <label class="checkbox-label">
-                      <input type="checkbox" name="skills" value="encryption">
-                      <span>AES Encryption</span>
+                      <input type="checkbox" name="skills" value="History">
+                      <span>Version History</span>
                     </label>
                     <label class="checkbox-label">
-                      <input type="checkbox" name="skills" value="sharing">
+                      <input type="checkbox" name="skills" value="Sharing">
                       <span>Key Sharing</span>
                     </label>
                   </div>
@@ -703,16 +718,16 @@
 
               <div class="form-group">
                 <!-- Address Field (multiline textarea) -->
-                <label for="reg-address">Physical Address</label>
-                <textarea id="reg-address" name="address" rows="3" placeholder="Enter street, city, state, postal code..." required></textarea>
+                <label for="reg-address">System Log Notes / Special Requests</label>
+                <textarea id="reg-address" name="address" rows="3" placeholder="Enter custom log notes, backup paths or account requests..." required></textarea>
                 <span class="error-msg" id="reg-address-error"></span>
               </div>
 
               <div class="form-actions">
                 <!-- Submit, Reset and Cancel Buttons -->
-                <button type="submit" class="btn-primary">Register Account</button>
-                <button type="reset" class="btn-secondary">Reset Fields</button>
-                <button type="button" id="btn-cancel" class="btn-cancel">Cancel</button>
+                <button type="submit" class="btn-primary" data-tooltip="Enroll storage account details">Enroll Workspace</button>
+                <button type="reset" class="btn-secondary" data-tooltip="Wipe form fields">Reset Fields</button>
+                <button type="button" id="btn-cancel" class="btn-cancel" data-tooltip="Cancel enrollment session">Cancel</button>
               </div>
             </form>
           </section>

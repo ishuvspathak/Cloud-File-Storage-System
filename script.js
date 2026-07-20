@@ -381,7 +381,7 @@ function initFormValidation() {
     // Submit to Supabase database profiles table
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.textContent;
-    submitBtn.textContent = 'Saving Profile to Cloud...';
+    submitBtn.textContent = 'Saving Enrollment to Cloud...';
     submitBtn.disabled = true;
 
     try {
@@ -410,7 +410,7 @@ function initFormValidation() {
         throw error;
       }
 
-      alert('Registration Successful! Your profile has been stored in your Supabase Cloud Database.');
+      alert('Enrollment Successful! Your storage workspace has been allocated in the cloud.');
       form.reset();
       
       fields.forEach(field => {
@@ -419,7 +419,7 @@ function initFormValidation() {
       });
       
     } catch (err) {
-      alert(`Registration Failed: ${err.message}`);
+      alert(`Enrollment Failed: ${err.message}`);
     } finally {
       submitBtn.textContent = originalBtnText;
       submitBtn.disabled = false;
@@ -496,18 +496,9 @@ function initFormValidation() {
     const errSpan = document.getElementById('reg-dob-error');
     const val = input.value;
     if (!val) {
-      showError(errSpan, 'Please select your Date of Birth', input);
+      showError(errSpan, 'Please select an enrollment date', input);
       return false;
     }
-    
-    const dobDate = new Date(val);
-    const today = new Date();
-    
-    if (dobDate > today) {
-      showError(errSpan, 'Date of Birth cannot be in the future', input);
-      return false;
-    }
-
     showSuccess(errSpan, input);
     return true;
   }
@@ -517,10 +508,10 @@ function initFormValidation() {
     const val = parseInt(input.value, 10);
     
     if (isNaN(val)) {
-      showError(errSpan, 'Please enter a numeric age', input);
+      showError(errSpan, 'Please enter number of devices', input);
       return false;
-    } else if (val < 16 || val > 100) {
-      showError(errSpan, 'Age must be between 16 and 100', input);
+    } else if (val < 1 || val > 20) {
+      showError(errSpan, 'Devices count must be between 1 and 20', input);
       return false;
     }
     
@@ -533,7 +524,7 @@ function initFormValidation() {
     const val = input.value;
     
     if (!val) {
-      showError(errSpan, 'Please select a preferred meeting time', input);
+      showError(errSpan, 'Please select a sync check-in time', input);
       return false;
     }
     
