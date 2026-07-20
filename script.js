@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Orbit', init: initOrbitMap },
     { name: 'Profile', init: initProfileDropdown },
     { name: 'CloudFiles', init: initCloudFilesExplorer },
-    { name: 'StorageSandbox', init: initHtml5Sandbox }
+    { name: 'StorageSandbox', init: initHtml5Sandbox },
+    { name: 'Scrollspy', init: initScrollspy }
   ];
 
   modules.forEach(m => {
@@ -602,6 +603,51 @@ function initScrollToTop() {
       top: 0,
       behavior: 'smooth'
     });
+  });
+}
+
+/* ==========================================================================
+   7b. SCROLLSPY ACTIVE NAV HIGHLIGHT (Assignment 5 Extra Scroll-highlights)
+   ========================================================================== */
+function initScrollspy() {
+  const sections = document.querySelectorAll('section[id], article[id]');
+  const navLinks = document.querySelectorAll('.top-nav-item');
+
+  window.addEventListener('scroll', () => {
+    let currentSectionId = '';
+    const scrollPosition = window.scrollY;
+
+    // Check which section is in view
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (scrollPosition >= (sectionTop - 140)) {
+        currentSectionId = section.getAttribute('id');
+      }
+    });
+
+    if (currentSectionId) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href');
+        
+        if (currentSectionId === 'welcome') {
+          // Differentiate between Home (top slider) and About (project description)
+          if (scrollPosition < 400) {
+            if (link.getAttribute('data-tooltip') === 'Go to Homepage') {
+              link.classList.add('active');
+            }
+          } else {
+            if (link.getAttribute('data-tooltip') === 'Learn about Gourmet Haven Cloud') {
+              link.classList.add('active');
+            }
+          }
+        } else {
+          if (href === `#${currentSectionId}`) {
+            link.classList.add('active');
+          }
+        }
+      });
+    }
   });
 }
 
