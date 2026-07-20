@@ -2371,3 +2371,263 @@ body.dark-theme .footer-social-icon {
     font-size: 0.55rem;
   }
 }
+
+/* ==========================================================================
+   17. HTML5 SANDBOX (DRAG & DROP AND WEB STORAGE)
+   ========================================================================== */
+.sandbox-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+.sandbox-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all var(--transition-normal);
+}
+
+.sandbox-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+
+.sandbox-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.sandbox-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Drag & Drop Styles */
+.drag-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.01);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  min-height: 220px;
+}
+
+body.dark-theme .drag-container {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+/* Draggable Key styling */
+.draggable-token-key {
+  width: 100%;
+  max-width: 240px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  background-color: var(--primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: grab;
+  user-select: none;
+  box-shadow: 0 4px 12px var(--primary-glow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  z-index: 2;
+}
+
+.draggable-token-key:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+
+.draggable-token-key.dragging {
+  opacity: 0.5;
+  border: 2px dashed #ffffff;
+}
+
+.token-icon {
+  font-size: 1.6rem;
+}
+
+.token-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.token-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.token-id {
+  font-size: 0.725rem;
+  opacity: 0.8;
+}
+
+/* Drop Vault target */
+.vault-drop-target {
+  width: 100%;
+  max-width: 240px;
+  height: 110px;
+  border: 2px dashed var(--border-light);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+  transition: all var(--transition-normal);
+  background-color: rgba(0, 0, 0, 0.005);
+}
+
+body.dark-theme .vault-drop-target {
+  background-color: rgba(255, 255, 255, 0.005);
+}
+
+.vault-icon {
+  font-size: 1.75rem;
+  transition: transform var(--transition-normal);
+}
+
+.vault-text {
+  font-size: 0.775rem;
+  font-weight: 600;
+}
+
+/* Drop target hover active state */
+.vault-drop-target.drag-active {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+  color: var(--primary);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.vault-drop-target.drag-active .vault-icon {
+  transform: translateY(-4px);
+}
+
+/* Unlocked success state */
+.vault-drop-target.unlocked {
+  border-style: solid;
+  border-color: var(--success);
+  background-color: var(--success-light);
+  color: var(--success);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.vault-drop-target.unlocked .draggable-token-key {
+  margin: 0;
+  box-shadow: none;
+}
+
+.sandbox-status-text {
+  font-size: 0.825rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.sandbox-status-text.success-text {
+  color: var(--success);
+}
+
+/* Web Storage input styles */
+.sandbox-storage-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.storage-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.storage-actions button {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 16px;
+  font-size: 0.8rem;
+}
+
+/* Stored data display */
+.stored-data-display {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stored-data-display h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.storage-output-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.storage-output-badge {
+  padding: 10px 14px;
+  background-color: rgba(0, 0, 0, 0.01);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  color: var(--text-main);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.dark-theme .storage-output-badge {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.storage-output-badge strong {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.empty-val {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.val-saved {
+  color: var(--success);
+  font-weight: 700;
+}
+
+/* Media Queries for Sandbox Grid */
+@media (max-width: 1024px) {
+  .sandbox-grid {
+    grid-template-columns: 1fr;
+  }
+}

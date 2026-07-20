@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Typing', init: initTypingEffect },
     { name: 'Orbit', init: initOrbitMap },
     { name: 'Profile', init: initProfileDropdown },
-    { name: 'CloudFiles', init: initCloudFilesExplorer }
+    { name: 'CloudFiles', init: initCloudFilesExplorer },
+    { name: 'StorageSandbox', init: initHtml5Sandbox }
   ];
 
   modules.forEach(m => {
@@ -877,4 +878,204 @@ async function loadFilesFromSupabase() {
 function escapeHtml(text) {
   const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
   return text.replace(/[&<>"']/g, (m) => map[m]);
+}
+
+/* ==========================================================================
+   12. HTML5 DRAG & DROP AND WEB STORAGE SANDBOX (Assignment 4)
+   ========================================================================== */
+function initHtml5Sandbox() {
+  // --- DRAG & DROP API ---
+  const securityToken = document.getElementById('security-token');
+  const encryptionVault = document.getElementById('encryption-vault');
+  const dragStatus = document.getElementById('drag-status');
+
+  if (securityToken && encryptionVault && dragStatus) {
+    // 1. Drag Start: Store token data and apply styling
+    securityToken.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', 'AES-256-TOKEN-KEY');
+      e.dataTransfer.effectAllowed = 'move';
+      securityToken.classList.add('dragging');
+      dragStatus.textContent = 'Status: Dragging token key...';
+    });
+
+    // End drag
+    securityToken.addEventListener('dragend', () => {
+      securityToken.classList.remove('dragging');
+      if (!encryptionVault.contains(securityToken)) {
+        dragStatus.textContent = 'Status: Vault Locked. Key is outside.';
+        dragStatus.className = 'sandbox-status-text';
+      }
+    });
+
+    // 2. Drag Over: Required to allow dropping
+    encryptionVault.addEventListener('dragover', (e) => {
+      e.preventDefault(); 
+      e.dataTransfer.dropEffect = 'move';
+    });
+
+    // 3. Drag Enter: Visual highlight
+    encryptionVault.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+      encryptionVault.classList.add('drag-active');
+      dragStatus.textContent = 'Status: Hovering over the Vault...';
+    });
+
+    // 4. Drag Leave: Remove visual highlight
+    encryptionVault.addEventListener('dragleave', () => {
+      encryptionVault.classList.remove('drag-active');
+      dragStatus.textContent = 'Status: Dragging token key...';
+    });
+
+    // 5. Drop Event: Perform docking and unlock actions
+    encryptionVault.addEventListener('drop', (e) => {
+      e.preventDefault();
+      encryptionVault.classList.remove('drag-active');
+      
+      const tokenData = e.dataTransfer.getData('text/plain');
+      
+      if (tokenData === 'AES-256-TOKEN-KEY') {
+        // Dock the key inside the dropzone
+        encryptionVault.appendChild(securityToken);
+        
+        // Update statuses and show success
+        dragStatus.textContent = 'Status: SUCCESS! Vault Unlocked. Advanced Encryption Enabled.';
+        dragStatus.className = 'sandbox-status-text success-text';
+        encryptionVault.classList.add('unlocked');
+        encryptionVault.querySelector('.vault-icon').innerHTML = '🔓';
+        encryptionVault.querySelector('.vault-text').textContent = 'Vault Slot: Active';
+        
+        // Push a live notification to the system notification list
+        pushLiveNotification('Success: Advanced hardware security vault unlocked.');
+      }
+    });
+  }
+
+  // Helper to push a notification dynamically in browser
+  function pushLiveNotification(message) {
+    const notifyList = document.querySelector('.notification-list');
+    const badge = document.getElementById('notify-badge-count');
+
+    if (notifyList) {
+      // Remove placeholder "No notifications"
+      const emptyPlaceholder = notifyList.querySelector('.no-notifications-item');
+      if (emptyPlaceholder) emptyPlaceholder.remove();
+
+      const li = document.createElement('li');
+      li.className = 'notify-item success-notify animate-slide-in-top';
+      li.innerHTML = `
+        <span class="notify-bullet">🔓</span>
+        <div>
+          <strong>Security Sandbox:</strong> ${message}
+          <p class="notify-time-ago">Just now</p>
+        </div>
+      `;
+      notifyList.insertBefore(li, notifyList.firstChild);
+
+      // Increment badge count
+      if (badge) {
+        let count = parseInt(badge.textContent, 10) || 0;
+        count++;
+        badge.textContent = count;
+        badge.style.display = 'flex';
+      }
+    }
+  }
+
+  // --- WEB STORAGE API ---
+  const localInput = document.getElementById('local-input');
+  const sessionInput = document.getElementById('session-input');
+  
+  const btnSave = document.getElementById('btn-save-storage');
+  const btnRetrieve = document.getElementById('btn-retrieve-storage');
+  const btnClear = document.getElementById('btn-clear-storage');
+  
+  const localOutput = document.getElementById('local-output-val');
+  const sessionOutput = document.getElementById('session-output-val');
+
+  // Pre-load draft data from storage (UX polish)
+  if (localInput && localStorage.getItem('userNickname')) {
+    localInput.value = localStorage.getItem('userNickname');
+  }
+  if (sessionInput && sessionStorage.getItem('sessionFilterKey')) {
+    sessionInput.value = sessionStorage.getItem('sessionFilterKey');
+  }
+
+  // Save Event
+  if (btnSave) {
+    btnSave.addEventListener('click', () => {
+      const localVal = localInput ? localInput.value.trim() : '';
+      const sessionVal = sessionInput ? sessionInput.value.trim() : '';
+
+      // Save permanently to localStorage
+      if (localVal) {
+        localStorage.setItem('userNickname', localVal);
+      } else {
+        localStorage.removeItem('userNickname');
+      }
+
+      // Save temporarily to sessionStorage
+      if (sessionVal) {
+        sessionStorage.setItem('sessionFilterKey', sessionVal);
+      } else {
+        sessionStorage.removeItem('sessionFilterKey');
+      }
+
+      alert('Web Storage Synced Successfully!\n\n- Local Storage (Permanent) Updated\n- Session Storage (Temporary) Updated');
+    });
+  }
+
+  // Retrieve & Display Event
+  if (btnRetrieve) {
+    btnRetrieve.addEventListener('click', () => {
+      const localVal = localStorage.getItem('userNickname');
+      const sessionVal = sessionStorage.getItem('sessionFilterKey');
+
+      if (localOutput) {
+        if (localVal) {
+          localOutput.textContent = `"${localVal}" (Saved permanently)`;
+          localOutput.className = 'val-saved';
+        } else {
+          localOutput.textContent = 'Empty';
+          localOutput.className = 'empty-val';
+        }
+      }
+
+      if (sessionOutput) {
+        if (sessionVal) {
+          sessionOutput.textContent = `"${sessionVal}" (Active tab session only)`;
+          sessionOutput.className = 'val-saved';
+        } else {
+          sessionOutput.textContent = 'Empty';
+          sessionOutput.className = 'empty-val';
+        }
+      }
+    });
+  }
+
+  // Clear Event
+  if (btnClear) {
+    btnClear.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all data in Local Storage and Session Storage?')) {
+        // Clear items
+        localStorage.removeItem('userNickname');
+        sessionStorage.removeItem('sessionFilterKey');
+
+        // Reset inputs
+        if (localInput) localInput.value = '';
+        if (sessionInput) sessionInput.value = '';
+
+        // Reset badges
+        if (localOutput) {
+          localOutput.textContent = 'Wiped / Empty';
+          localOutput.className = 'empty-val';
+        }
+        if (sessionOutput) {
+          sessionOutput.textContent = 'Wiped / Empty';
+          sessionOutput.className = 'empty-val';
+        }
+
+        alert('Web Storage Cleared successfully.');
+      }
+    });
+  }
 }

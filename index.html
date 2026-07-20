@@ -137,13 +137,13 @@
               </a>
             </li>
             <li>
-              <a href="#services" class="nav-item">
-                <span class="nav-icon">&#128188;</span> Services
+              <a href="#features" class="nav-item">
+                <span class="nav-icon">&#128188;</span> Features
               </a>
             </li>
             <li>
-              <a href="#registration" class="nav-item">
-                <span class="nav-icon">&#128221;</span> Registration
+              <a href="#cloud-storage-explorer" class="nav-item">
+                <span class="nav-icon">&#128193;</span> Storage
               </a>
             </li>
             <li>
@@ -152,7 +152,7 @@
               </a>
             </li>
             <li>
-              <a href="#welcome" class="nav-item">
+              <a href="#contact" class="nav-item">
                 <span class="nav-icon">&#9096;</span> Help
               </a>
             </li>
@@ -511,6 +511,81 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Assignment 4: HTML5 Drag & Drop and Web Storage Sandbox -->
+        <section id="storage-sandbox" class="dashboard-section animate-fade-in">
+          <div class="section-header">
+            <h2>HTML5 Drag & Drop & Web Storage Sandbox</h2>
+            <p class="section-subtitle">Demonstration of HTML5 Drag & Drop APIs, permanent Local Storage, and temporary Session Storage.</p>
+          </div>
+          <hr class="section-divider">
+
+          <div class="sandbox-grid">
+            <!-- Panel 1: Drag & Drop Demo -->
+            <div class="sandbox-card drag-drop-panel">
+              <h3>HTML5 Drag and Drop Encryption Slot</h3>
+              <p class="sandbox-desc">Drag the Security Token Key and drop it inside the target container to unlock advanced dashboard panels.</p>
+              
+              <div class="drag-container">
+                <!-- Drag Source -->
+                <div id="security-token" class="draggable-token-key" draggable="true">
+                  <span class="token-icon">&#128273;</span>
+                  <div class="token-details">
+                    <span class="token-title">Security Key</span>
+                    <span class="token-id">AES-256 Key Token</span>
+                  </div>
+                </div>
+
+                <!-- Drop Target -->
+                <div id="encryption-vault" class="vault-drop-target">
+                  <span class="vault-icon">&#128274;</span>
+                  <span class="vault-text">Drag & Drop Token Here</span>
+                </div>
+              </div>
+              <div id="drag-status" class="sandbox-status-text">Status: Vault Locked. Key is outside.</div>
+            </div>
+
+            <!-- Panel 2: Web Storage Manager -->
+            <div class="sandbox-card storage-panel">
+              <h3>HTML5 Browser Web Storage</h3>
+              <p class="sandbox-desc">Test permanent Local Storage (persists after tab closure) and temporary Session Storage (cleared on tab closure).</p>
+              
+              <form id="storage-form" class="sandbox-storage-form">
+                <div class="form-row-two">
+                  <div class="form-group">
+                    <label for="local-input">Persistent User Nickname (Local Storage)</label>
+                    <input type="text" id="local-input" placeholder="Enter persistent name/notes...">
+                  </div>
+                  <div class="form-group">
+                    <label for="session-input">Temporary Filter Keyword (Session Storage)</label>
+                    <input type="text" id="session-input" placeholder="Enter session search key...">
+                  </div>
+                </div>
+
+                <div class="storage-actions">
+                  <button type="button" id="btn-save-storage" class="btn-primary">Save to Storage</button>
+                  <button type="button" id="btn-retrieve-storage" class="btn-secondary">Retrieve & Display</button>
+                  <button type="button" id="btn-clear-storage" class="btn-cancel">Clear Data</button>
+                </div>
+              </form>
+
+              <!-- Stored Data Display Panel -->
+              <div class="stored-data-display">
+                <h4>Stored Browser Memory Details:</h4>
+                <div class="storage-output-badges">
+                  <div class="storage-output-badge">
+                    <strong>Local Storage:</strong> <span id="local-output-val" class="empty-val">Not Retrieved Yet</span>
+                  </div>
+                  <div class="storage-output-badge">
+                    <strong>Session Storage:</strong> <span id="session-output-val" class="empty-val">Not Retrieved Yet</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
