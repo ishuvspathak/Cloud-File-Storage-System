@@ -62,6 +62,7 @@
           </div>
 
           <!-- 11. Notification Drawer Panel -->
+           <div id =notify-bullet">&#4584</div>d</div>
           <div id="notification-panel" class="notification-panel">
             <div class="notify-panel-header">
               <h5>System Notifications</h5>
@@ -598,6 +599,208 @@
           </div>
         </section>
 
+        <!-- Week 6: Interactive Event-Driven Diagnostics and Media Deck -->
+        <section id="cloud-diagnostics" class="dashboard-section animate-fade-in">
+          <div class="section-header">
+            <h2>Interactive Diagnostics & Media Deck</h2>
+            <p class="section-subtitle">Demonstrates custom video streaming, server catalog filters, security audits, and operator communications.</p>
+          </div>
+
+          <div class="sandbox-grid">
+            <!-- Column 1: Server Connection Grid (Course Catalog) & Search Bar -->
+            <div class="sandbox-card">
+              <h3>Active Server Node Catalog</h3>
+              <p class="sandbox-desc">Search, filter, and connect to remote storage clusters. Hover cards for specs.</p>
+              
+              <!-- Search & Filter Controls (Req 5) -->
+              <div class="nodes-search-controls">
+                <input type="text" id="node-search" placeholder="Type node name (Enter to search)..." data-tooltip="Press Enter to search">
+                <select id="node-region">
+                  <option value="all">All Regions</option>
+                  <option value="asia">Asia Pacific</option>
+                  <option value="us">Americas</option>
+                  <option value="eu">Europe</option>
+                </select>
+                <select id="node-tier">
+                  <option value="all">All Tiers</option>
+                  <option value="free">Free Tiers</option>
+                  <option value="premium">Premium Tiers</option>
+                </select>
+              </div>
+
+              <!-- Node Cards Grid (Req 1) -->
+              <div class="nodes-grid" id="nodes-grid">
+                <!-- Node 1 -->
+                <div class="node-card" data-name="Tokyo Node" data-region="asia" data-tier="free">
+                  <span class="favorite-star" data-tooltip="Toggle Favorite">&#9734;</span>
+                  <div class="node-icon-circle">&#128452;</div>
+                  <h4>Tokyo Node-1</h4>
+                  <p class="node-meta">Region: Tokyo, Asia</p>
+                  <p class="node-price">Free Tier</p>
+                  <button class="btn-connect-node btn-primary" data-id="tokyo">Connect Node</button>
+                  <div class="node-card-overlay">
+                    <p><strong>Latency:</strong> 12ms</p>
+                    <p><strong>Uptime:</strong> 99.99%</p>
+                    <p><strong>Bandwidth:</strong> 1 Gbps</p>
+                  </div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="node-card" data-name="Oregon Node" data-region="us" data-tier="premium">
+                  <span class="favorite-star" data-tooltip="Toggle Favorite">&#9734;</span>
+                  <div class="node-icon-circle">&#128452;</div>
+                  <h4>Oregon Node-2</h4>
+                  <p class="node-meta">Region: Oregon, US</p>
+                  <p class="node-price">$15 / month</p>
+                  <button class="btn-connect-node btn-primary" data-id="oregon">Connect Node</button>
+                  <div class="node-card-overlay">
+                    <p><strong>Latency:</strong> 112ms</p>
+                    <p><strong>Uptime:</strong> 99.99%</p>
+                    <p><strong>Bandwidth:</strong> 10 Gbps</p>
+                  </div>
+                </div>
+
+                <!-- Node 3 -->
+                <div class="node-card" data-name="Frankfurt Node" data-region="eu" data-tier="premium">
+                  <span class="favorite-star" data-tooltip="Toggle Favorite">&#9734;</span>
+                  <div class="node-icon-circle">&#128452;</div>
+                  <h4>Frankfurt Node-3</h4>
+                  <p class="node-meta">Region: Frankfurt, EU</p>
+                  <p class="node-price">$29 / month</p>
+                  <button class="btn-connect-node btn-primary" data-id="frankfurt">Connect Node</button>
+                  <div class="node-card-overlay">
+                    <p><strong>Latency:</strong> 178ms</p>
+                    <p><strong>Uptime:</strong> 99.95%</p>
+                    <p><strong>Bandwidth:</strong> 10 Gbps</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: Custom Media Deck (Video Player & Discussion logs) -->
+            <div class="sandbox-card">
+              <h3>Secure Cloud Media Player</h3>
+              <p class="sandbox-desc">Custom controls for streaming cloud video assets.</p>
+              
+              <!-- Video Player (Req 2) -->
+              <div class="custom-video-player">
+                <video id="cloud-video" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" poster="assets/video_poster.jpg"></video>
+                <div class="video-controls-bar">
+                  <button id="video-play-btn" class="video-control-btn" data-tooltip="Play/Pause video">&#9658;</button>
+                  <div class="video-progress-container" id="video-progress-container" data-tooltip="Click to seek">
+                    <div class="video-progress-bar" id="video-progress-bar"></div>
+                  </div>
+                  <div class="video-volume-container">
+                    <span class="volume-icon">&#128266;</span>
+                    <input type="range" id="video-volume-slider" min="0" max="1" step="0.05" value="0.5" data-tooltip="Adjust volume">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Operator Chat Board (Req 6 - Event Delegation, dblclick inline editing) -->
+              <div class="operator-comments-section">
+                <h4>Operator Discussion Thread</h4>
+                <div class="comments-list" id="discussion-list">
+                  <div class="comment-item" data-id="comment-1">
+                    <div class="comment-header">
+                      <strong>Lead Engineer</strong>
+                      <span class="comment-time">10 mins ago</span>
+                    </div>
+                    <div class="comment-body">Node 3 latency looks high, checking routing.</div>
+                    <div class="comment-actions">
+                      <a href="#" class="reply-link">Reply</a>
+                    </div>
+                  </div>
+                </div>
+                
+                <form id="comment-post-form" class="comment-input-form">
+                  <textarea id="comment-input" rows="2" placeholder="Write operator comment (Double click comments to edit)..." required></textarea>
+                  <button type="submit" class="btn-primary btn-sm">Post Log</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="sandbox-grid" style="margin-top:24px;">
+            <!-- Column 3: Security Checkup Quiz (MCQ Assessment) -->
+            <div class="sandbox-card">
+              <h3>System Security Diagnostic Quiz</h3>
+              <p class="sandbox-desc">Complete the MCQ security audit within the timer window to verify configuration clearances.</p>
+              
+              <div class="quiz-controls">
+                <button id="start-quiz-btn" class="btn-primary">Start Audit Timer</button>
+                <span id="quiz-timer-display" class="quiz-timer-text">Timer: 00s</span>
+              </div>
+
+              <form id="quiz-form" style="display:none; margin-top:20px;">
+                <div class="quiz-question">
+                  <p><strong>1. Which algorithm is default in the encryption vault?</strong></p>
+                  <div class="options-group" style="flex-direction:column; align-items:flex-start;">
+                    <label class="option-item"><input type="radio" name="q1" value="aes"> <span>AES-256 Bit</span></label>
+                    <label class="option-item"><input type="radio" name="q1" value="md5"> <span>MD5 Hash</span></label>
+                    <label class="option-item"><input type="radio" name="q1" value="rsa"> <span>RSA-1024 Bit</span></label>
+                  </div>
+                </div>
+                
+                <div class="quiz-question" style="margin-top:16px;">
+                  <p><strong>2. Where is persistent nickname data stored?</strong></p>
+                  <div class="options-group" style="flex-direction:column; align-items:flex-start;">
+                    <label class="option-item"><input type="radio" name="q2" value="session"> <span>Session Storage</span></label>
+                    <label class="option-item"><input type="radio" name="q2" value="local"> <span>Local Storage</span></label>
+                    <label class="option-item"><input type="radio" name="q2" value="database"> <span>Cloud Database</span></label>
+                  </div>
+                </div>
+
+                <button type="submit" id="submit-quiz-btn" class="btn-primary" style="margin-top:20px;">Submit Audit</button>
+              </form>
+
+              <div id="quiz-results" class="quiz-results-banner" style="display:none; margin-top:20px;"></div>
+            </div>
+
+            <!-- Column 4: Storage Sync Progress Auditor -->
+            <div class="sandbox-card">
+              <h3>Sync Directory Progress Auditor</h3>
+              <p class="sandbox-desc">Audit directories sync state. Hover bar to see exact completion rates.</p>
+              
+              <div class="progress-bar-container" style="margin: 20px 0;">
+                <div class="progress-bar-label">Sync Occupancy State:</div>
+                <div class="css-progress-container" id="sync-progress-container" style="cursor:pointer;">
+                  <div class="css-progress-bar" id="sync-progress-bar" style="width:25%;"></div>
+                </div>
+                <span id="sync-percentage-text" style="font-size:0.85rem; font-weight:700;">25% Synchronized</span>
+              </div>
+
+              <!-- Sync Nodes directories checkboxes list -->
+              <div class="sync-directories-list" id="sync-directories-list">
+                <div class="sync-directory-item">
+                  <label class="checkbox-label">
+                    <input type="checkbox" class="sync-dir-checkbox" data-weight="25" checked>
+                    <span>/root/core_systems (Weight: 25%)</span>
+                  </label>
+                </div>
+                <div class="sync-directory-item">
+                  <label class="checkbox-label">
+                    <input type="checkbox" class="sync-dir-checkbox" data-weight="35">
+                    <span>/root/database_snapshots (Weight: 35%)</span>
+                  </label>
+                </div>
+                <div class="sync-directory-item">
+                  <label class="checkbox-label">
+                    <input type="checkbox" class="sync-dir-checkbox" data-weight="20">
+                    <span>/root/images_media (Weight: 20%)</span>
+                  </label>
+                </div>
+                <div class="sync-directory-item">
+                  <label class="checkbox-label">
+                    <input type="checkbox" class="sync-dir-checkbox" data-weight="20">
+                    <span>/root/user_backups (Weight: 20%)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <hr class="section-divider">
 
         <!-- Bottom Grid: Registration & Contact Info -->
@@ -627,7 +830,7 @@
                 </div>
               </div>
 
-              <div class="form-row-two">
+              <div class="form-row-three">
                 <div class="form-group">
                   <!-- Phone Field (HTML5 tel type, pattern attribute) -->
                   <label for="reg-phone">Phone Number</label>
@@ -639,6 +842,12 @@
                   <label for="reg-password">Access Security PIN / Password</label>
                   <input type="password" id="reg-password" name="password" placeholder="Min. 8 characters" required>
                   <span class="error-msg" id="reg-password-error"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="reg-confirm-password">Confirm Password</label>
+                  <input type="password" id="reg-confirm-password" placeholder="Re-enter password" required>
+                  <span class="error-msg" id="reg-confirm-password-error"></span>
                 </div>
               </div>
 

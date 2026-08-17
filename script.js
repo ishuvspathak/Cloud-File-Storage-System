@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Profile', init: initProfileDropdown },
     { name: 'CloudFiles', init: initCloudFilesExplorer },
     { name: 'StorageSandbox', init: initHtml5Sandbox },
-    { name: 'Scrollspy', init: initScrollspy }
+    { name: 'Scrollspy', init: initScrollspy },
+    { name: 'Diagnostics', init: initDiagnosticsDeck }
   ];
 
   modules.forEach(m => {
@@ -284,6 +285,7 @@ function initFormValidation() {
     { id: 'reg-email', validate: validateEmail },
     { id: 'reg-phone', validate: validatePhone },
     { id: 'reg-password', validate: validatePassword },
+    { id: 'reg-confirm-password', validate: (input) => validateConfirmPassword(input, document.getElementById('reg-password')) },
     { id: 'reg-dob', validate: validateDOB },
     { id: 'reg-age', validate: validateAge },
     { id: 'reg-time', validate: validateTime },
@@ -298,6 +300,28 @@ function initFormValidation() {
       field.validate(input);
     });
   });
+
+  // Blur events for email/password formatting validations (Requirement 3)
+  const emailInput = document.getElementById('reg-email');
+  if (emailInput) {
+    emailInput.addEventListener('blur', () => {
+      validateEmail(emailInput);
+    });
+  }
+
+  const passwordInput = document.getElementById('reg-password');
+  if (passwordInput) {
+    passwordInput.addEventListener('blur', () => {
+      validatePassword(passwordInput);
+    });
+  }
+
+  const confirmInput = document.getElementById('reg-confirm-password');
+  if (confirmInput && passwordInput) {
+    confirmInput.addEventListener('blur', () => {
+      validateConfirmPassword(confirmInput, passwordInput);
+    });
+  }
 
   const cancelBtn = document.getElementById('btn-cancel');
   if (cancelBtn) {
@@ -499,6 +523,20 @@ function initFormValidation() {
       return false;
     }
     showSuccess(errSpan, input);
+    return true;
+  }
+
+  function validateConfirmPassword(confirmInput, passInput) {
+    const errSpan = document.getElementById('reg-confirm-password-error');
+    if (confirmInput.value === '') {
+      showError(errSpan, 'Please confirm your password', confirmInput);
+      return false;
+    }
+    if (confirmInput.value !== passInput.value) {
+      showError(errSpan, 'Passwords do not match', confirmInput);
+      return false;
+    }
+    showSuccess(errSpan, confirmInput);
     return true;
   }
 
@@ -1137,5 +1175,403 @@ function initHtml5Sandbox() {
         alert('Web Storage Cleared successfully.');
       }
     });
+  }
+}
+
+/* ==========================================================================
+   14. INTERACTIVE DIAGNOSTICS & MEDIA DECK (Week 6 Event Handling Sandbox)
+   ========================================================================== */
+function initDiagnosticsDeck() {
+  // --- MODULE 1 & 5: SERVER NODE CATALOG, FILTERS & FAVORITES ---
+  const nodeSearch = document.getElementById('node-search');
+  const regionFilter = document.getElementById('node-region');
+  const tierFilter = document.getElementById('node-tier');
+  const nodesGrid = document.getElementById('nodes-grid');
+  
+  if (nodesGrid) {
+    const nodeCards = Array.from(nodesGrid.querySelectorAll('.node-card'));
+    let connectedCount = 0;
+
+    // 1. Connection logic
+    nodesGrid.addEventListener('click', (e) => {
+      if (e.target.classList.contains('btn-connect-node')) {
+        const btn = e.target;
+        const card = btn.closest('.node-card');
+        const nodeName = card.querySelector('h4').textContent;
+
+        if (btn.textContent === 'Connect Node') {
+          btn.textContent = 'Disconnect';
+          btn.classList.replace('btn-primary', 'btn-secondary');
+          connectedCount++;
+          addSystemNotification(`Connected to ${nodeName} remote node cluster.`);
+        } else {
+          btn.textContent = 'Connect Node';
+          btn.classList.replace('btn-secondary', 'btn-primary');
+          connectedCount--;
+          addSystemNotification(`Disconnected from ${nodeName} remote cluster.`);
+        }
+
+        // Update connected badge
+        const catalogHeader = document.querySelector('#cloud-diagnostics h3');
+        if (catalogHeader) {
+          catalogHeader.textContent = `Active Server Node Catalog (Connected: ${connectedCount})`;
+        }
+      }
+    });
+
+    // 2. Favorite Star toggle (Req 1)
+    nodesGrid.addEventListener('click', (e) => {
+      if (e.target.classList.contains('favorite-star')) {
+        const star = e.target;
+        star.classList.toggle('active');
+        if (star.classList.contains('active')) {
+          star.innerHTML = '&#9733;'; // Gold filled star
+          star.style.color = '#d97706';
+        } else {
+          star.innerHTML = '&#9734;'; // Empty star
+          star.style.color = '';
+        }
+      }
+    });
+
+    // 3. Search & Filter logic (Req 5)
+    const filterNodes = () => {
+      const query = nodeSearch ? nodeSearch.value.trim().toLowerCase() : '';
+      const region = regionFilter ? regionFilter.value : 'all';
+      const tier = tierFilter ? tierFilter.value : 'all';
+
+      nodeCards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        const cardRegion = card.getAttribute('data-region');
+        const cardTier = card.getAttribute('data-tier');
+
+        const matchesSearch = name.includes(query);
+        const matchesRegion = region === 'all' || cardRegion === region;
+        const matchesTier = tier === 'all' || cardTier === tier;
+
+        if (matchesSearch && matchesRegion && matchesTier) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    };
+
+    if (nodeSearch) {
+      nodeSearch.addEventListener('input', filterNodes);
+      
+      // keydown (Enter key) triggers explicit search alert (Req 5)
+      nodeSearch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          filterNodes();
+          alert(`Explicit node query executed for: "${nodeSearch.value}"`);
+        }
+      });
+    }
+
+    if (regionFilter) regionFilter.addEventListener('change', filterNodes);
+    if (tierFilter) tierFilter.addEventListener('change', filterNodes);
+  }
+
+  // --- MODULE 2: CUSTOM VIDEO PLAYER interface (Req 2) ---
+  const video = document.getElementById('cloud-video');
+  const playBtn = document.getElementById('video-play-btn');
+  const progressBar = document.getElementById('video-progress-bar');
+  const progressContainer = document.getElementById('video-progress-container');
+  const volumeSlider = document.getElementById('video-volume-slider');
+
+  if (video && playBtn) {
+    // Play/Pause toggle
+    playBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play().catch(err => console.log("Video auto-play check:", err));
+        playBtn.innerHTML = '&#9646;&#9646;'; // Pause symbol
+      } else {
+        video.pause();
+        playBtn.innerHTML = '&#9658;'; // Play symbol
+      }
+    });
+
+    // Timeupdate progress update
+    video.addEventListener('timeupdate', () => {
+      if (video.duration) {
+        const percent = (video.currentTime / video.duration) * 100;
+        if (progressBar) progressBar.style.width = `${percent}%`;
+      }
+    });
+
+    // Volume range change
+    if (volumeSlider) {
+      volumeSlider.addEventListener('input', (e) => {
+        video.volume = e.target.value;
+      });
+    }
+
+    // Click on progress container to seek
+    if (progressContainer) {
+      progressContainer.addEventListener('click', (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+        if (video.duration) {
+          video.currentTime = (clickX / width) * video.duration;
+        }
+      });
+    }
+  }
+
+  // --- MODULE 4: SECURITY DIAGNOSTICS ASSESSMENT / QUIZ (Req 4) ---
+  const startQuizBtn = document.getElementById('start-quiz-btn');
+  const quizTimerDisplay = document.getElementById('quiz-timer-display');
+  const quizForm = document.getElementById('quiz-form');
+  const resultsBanner = document.getElementById('quiz-results');
+  let quizInterval = null;
+  let quizTimeLeft = 30; // 30 seconds timer
+  let quizSelectedAnswers = { q1: '', q2: '' };
+
+  if (startQuizBtn && quizForm) {
+    // Record options change
+    quizForm.addEventListener('change', (e) => {
+      if (e.target.name === 'q1' || e.target.name === 'q2') {
+        quizSelectedAnswers[e.target.name] = e.target.value;
+      }
+    });
+
+    // Start Quiz click
+    startQuizBtn.addEventListener('click', () => {
+      quizForm.style.display = 'block';
+      startQuizBtn.style.display = 'none';
+      resultsBanner.style.display = 'none';
+      quizTimeLeft = 30;
+      quizTimerDisplay.textContent = `Timer: ${quizTimeLeft}s`;
+
+      // Clear any previous interval
+      if (quizInterval) clearInterval(quizInterval);
+
+      // Start countdown
+      quizInterval = setInterval(() => {
+        quizTimeLeft--;
+        quizTimerDisplay.textContent = `Timer: ${quizTimeLeft}s`;
+        if (quizTimeLeft <= 0) {
+          clearInterval(quizInterval);
+          alert('Security Audit Timer expired! Auto-submitting assessment.');
+          submitQuiz();
+        }
+      }, 1000);
+    });
+
+    // Submit Quiz logic
+    const submitQuiz = () => {
+      if (quizInterval) clearInterval(quizInterval);
+      
+      // Calculate score
+      let score = 0;
+      if (quizSelectedAnswers.q1 === 'aes') score++;
+      if (quizSelectedAnswers.q2 === 'local') score++;
+
+      // Disable quiz inputs
+      const inputs = quizForm.querySelectorAll('input');
+      inputs.forEach(input => input.disabled = true);
+      const submitBtn = document.getElementById('submit-quiz-btn');
+      if (submitBtn) submitBtn.disabled = true;
+
+      // Render score banner
+      resultsBanner.style.display = 'block';
+      if (score === 2) {
+        resultsBanner.className = 'quiz-results-banner quiz-success';
+        resultsBanner.innerHTML = `🛡️ Security Clearance Passed! Score: ${score}/2 (100%)`;
+        addSystemNotification("Security diagnostics cleared. Cloud compliance status set to Healthy.");
+      } else {
+        resultsBanner.className = 'quiz-results-banner quiz-failure';
+        resultsBanner.innerHTML = `⚠️ Security Audit Warning! Score: ${score}/2. Review configuration.`;
+        addSystemNotification("Security diagnostics warning. Review storage credentials.");
+      }
+    };
+
+    quizForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitQuiz();
+    });
+  }
+
+  // --- MODULE 6: OPERATOR DISCUSSION logs & EVENT DELEGATION (Req 6) ---
+  const commentForm = document.getElementById('comment-post-form');
+  const commentInput = document.getElementById('comment-input');
+  const discussionList = document.getElementById('discussion-list');
+
+  if (commentForm && commentInput && discussionList) {
+    // 1. Submit comment
+    commentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = commentInput.value.trim();
+      if (!text) return;
+
+      const newId = `comment-${Date.now()}`;
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'comment-item';
+      commentDiv.setAttribute('data-id', newId);
+      commentDiv.innerHTML = `
+        <div class="comment-header">
+          <strong>System Operator</strong>
+          <span class="comment-time">Just now</span>
+        </div>
+        <div class="comment-body">${escapeHtmlText(text)}</div>
+        <div class="comment-actions">
+          <a href="#" class="reply-link">Reply</a>
+        </div>
+      `;
+      discussionList.appendChild(commentDiv);
+      commentInput.value = '';
+      discussionList.scrollTop = discussionList.scrollHeight; // Scroll to bottom
+    });
+
+    // 2. Click Reply link (using EVENT DELEGATION on the list container)
+    discussionList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('reply-link')) {
+        e.preventDefault();
+        const link = e.target;
+        const item = link.closest('.comment-item');
+
+        // Check if reply box already exists
+        if (item.querySelector('.reply-box')) return;
+
+        const replyWrapper = document.createElement('div');
+        replyWrapper.className = 'reply-box';
+        replyWrapper.innerHTML = `
+          <textarea rows="1" placeholder="Write reply..." style="width: 100%; font-size: 0.75rem; margin-top: 6px;"></textarea>
+          <button class="btn-primary btn-sm btn-post-reply" style="font-size: 0.7rem; padding: 2px 6px; margin-top: 4px;">Post Reply</button>
+        `;
+        item.appendChild(replyWrapper);
+        replyWrapper.querySelector('textarea').focus();
+      }
+
+      // Handle posting the reply inside delegation
+      if (e.target.classList.contains('btn-post-reply')) {
+        const btn = e.target;
+        const replyWrapper = btn.closest('.reply-box');
+        const textarea = replyWrapper.querySelector('textarea');
+        const text = textarea.value.trim();
+        const item = btn.closest('.comment-item');
+
+        if (text) {
+          const replyLog = document.createElement('div');
+          replyLog.style.fontSize = '0.75rem';
+          replyLog.style.marginTop = '6px';
+          replyLog.style.paddingLeft = '10px';
+          replyLog.style.borderLeft = '2px solid var(--accent)';
+          replyLog.innerHTML = `<strong>Reply:</strong> ${escapeHtmlText(text)}`;
+          item.appendChild(replyLog);
+        }
+        replyWrapper.remove(); // Remove input deck
+      }
+    });
+
+    // 3. Double click to edit comments inline (Req 6)
+    discussionList.addEventListener('dblclick', (e) => {
+      const body = e.target.closest('.comment-body');
+      if (body) {
+        const oldText = body.textContent;
+        const input = document.createElement('textarea');
+        input.value = oldText;
+        input.style.width = '100%';
+        input.style.fontSize = '0.8rem';
+        
+        body.innerHTML = '';
+        body.appendChild(input);
+        input.focus();
+
+        const saveEdit = () => {
+          const newText = input.value.trim();
+          body.innerHTML = escapeHtmlText(newText || oldText);
+        };
+
+        input.addEventListener('blur', saveEdit);
+        input.addEventListener('keydown', (evt) => {
+          if (evt.key === 'Enter') {
+            evt.preventDefault();
+            saveEdit();
+          }
+        });
+      }
+    });
+  }
+
+  // --- MODULE 7: STUDENT DASHBOARD / SYNC PROGRESS AUDITOR (Req 7) ---
+  const syncProgressContainer = document.getElementById('sync-progress-container');
+  const syncProgressBar = document.getElementById('sync-progress-bar');
+  const syncPercentageText = document.getElementById('sync-percentage-text');
+  const syncDirectories = document.getElementById('sync-directories-list');
+
+  if (syncProgressContainer && syncProgressBar && syncPercentageText && syncDirectories) {
+    // 1. Mouseover on progress container displays tooltip
+    syncProgressContainer.addEventListener('mouseover', (e) => {
+      const percentage = syncProgressBar.style.width || '25%';
+      let tooltip = document.getElementById('progress-tooltip-deck');
+      if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.id = 'progress-tooltip-deck';
+        tooltip.style.position = 'absolute';
+        tooltip.style.background = 'var(--bg-card)';
+        tooltip.style.border = '1px solid var(--border-color)';
+        tooltip.style.padding = '4px 8px';
+        tooltip.style.fontSize = '0.75rem';
+        tooltip.style.borderRadius = '4px';
+        tooltip.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+        tooltip.style.zIndex = '10';
+        document.body.appendChild(tooltip);
+      }
+      tooltip.textContent = `Direct Completion Percentage: ${percentage}`;
+      tooltip.style.display = 'block';
+
+      const updateTooltipPos = (evt) => {
+        tooltip.style.left = `${evt.pageX + 10}px`;
+        tooltip.style.top = `${evt.pageY + 10}px`;
+      };
+      
+      syncProgressContainer.addEventListener('mousemove', updateTooltipPos);
+      
+      syncProgressContainer.addEventListener('mouseout', function mouseoutHandler() {
+        tooltip.style.display = 'none';
+        syncProgressContainer.removeEventListener('mousemove', updateTooltipPos);
+        syncProgressContainer.removeEventListener('mouseout', mouseoutHandler);
+      });
+    });
+
+    // 2. Change on checkboxes recalculates sync completion percentage (Req 7)
+    syncDirectories.addEventListener('change', (e) => {
+      if (e.target.classList.contains('sync-dir-checkbox')) {
+        recalculateSyncPercentage();
+      }
+    });
+
+    function recalculateSyncPercentage() {
+      const checkboxes = Array.from(syncDirectories.querySelectorAll('.sync-dir-checkbox'));
+      let totalSync = 0;
+      checkboxes.forEach(box => {
+        if (box.checked) {
+          totalSync += parseInt(box.getAttribute('data-weight'), 10);
+        }
+      });
+      syncProgressBar.style.width = `${totalSync}%`;
+      syncPercentageText.textContent = `${totalSync}% Synchronized`;
+    }
+  }
+
+  function escapeHtmlText(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+    return text.replace(/[&<>"']/g, (m) => map[m]);
+  }
+
+  function addSystemNotification(msg) {
+    // Add dynamic logs to notification bell if available
+    const bellIcon = document.querySelector('.bell-icon-badge') || document.querySelector('.top-nav-item:nth-child(5)');
+    if (bellIcon) {
+      const badge = bellIcon.querySelector('.badge') || bellIcon;
+      // Increment notification count
+      let currentVal = parseInt(badge.textContent, 10) || 0;
+      badge.textContent = currentVal + 1;
+    }
+    console.log("[Notification System Log]:", msg);
   }
 }
