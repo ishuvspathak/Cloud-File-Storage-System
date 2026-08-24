@@ -2826,7 +2826,7 @@ body.dark-theme .css-progress-container {
   padding: 12px;
   font-size: 0.8rem;
   border-radius: var(--radius-md) var(--radius-md) 0 0;
-  transform: translateY(100%);
+  transform: translateY(150%);
   transition: transform var(--transition-normal) cubic-bezier(0.25, 0.8, 0.25, 1);
   opacity: 0.98;
   z-index: 1;
