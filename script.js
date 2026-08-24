@@ -1378,15 +1378,34 @@ function initDiagnosticsDeck() {
 
       // Render score banner
       resultsBanner.style.display = 'block';
+      let statusText = '';
       if (score === 2) {
         resultsBanner.className = 'quiz-results-banner quiz-success';
-        resultsBanner.innerHTML = `🛡️ Security Clearance Passed! Score: ${score}/2 (100%)`;
+        statusText = `🛡️ Security Clearance Passed! Score: ${score}/2 (100%)`;
         addSystemNotification("Security diagnostics cleared. Cloud compliance status set to Healthy.");
       } else {
         resultsBanner.className = 'quiz-results-banner quiz-failure';
-        resultsBanner.innerHTML = `⚠️ Security Audit Warning! Score: ${score}/2. Review configuration.`;
+        statusText = `⚠️ Security Audit Warning! Score: ${score}/2. Review configuration.`;
         addSystemNotification("Security diagnostics warning. Review storage credentials.");
       }
+
+      resultsBanner.innerHTML = `${statusText} <button id="btn-retake-quiz" class="btn-secondary btn-sm" style="margin-left: 12px; font-size: 0.75rem; padding: 4px 8px; cursor: pointer; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-color);">Retake Audit</button>`;
+
+      document.getElementById('btn-retake-quiz').addEventListener('click', () => {
+        quizForm.reset();
+        quizForm.style.display = 'none';
+        
+        // Re-enable inputs
+        const inputs = quizForm.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = false);
+        const submitBtn = document.getElementById('submit-quiz-btn');
+        if (submitBtn) submitBtn.disabled = false;
+        
+        resultsBanner.style.display = 'none';
+        startQuizBtn.style.display = 'inline-block';
+        quizTimerDisplay.textContent = 'Timer: 00s';
+        quizSelectedAnswers = { q1: '', q2: '' };
+      });
     };
 
     quizForm.addEventListener('submit', (e) => {
