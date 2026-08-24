@@ -3080,6 +3080,14 @@ body.dark-theme .css-progress-container {
   position: relative;
 }
 
+.sync-progress-bar-fill {
+  width: 25%;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 10px;
+  transition: width var(--transition-normal);
+}
+
 /* Responsive adjustment for sandbox grids */
 @media (max-width: 992px) {
   .sandbox-grid {
