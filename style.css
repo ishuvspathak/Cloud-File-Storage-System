@@ -2785,6 +2785,7 @@ body.dark-theme .css-progress-container {
   color: var(--text-muted);
   user-select: none;
   transition: color var(--transition-fast);
+  z-index: 2;
 }
 
 .favorite-star.active {
@@ -2815,7 +2816,7 @@ body.dark-theme .css-progress-container {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 72%;
   background: var(--bg-card);
   display: flex;
   flex-direction: column;
@@ -2824,10 +2825,12 @@ body.dark-theme .css-progress-container {
   gap: 6px;
   padding: 12px;
   font-size: 0.8rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
   transform: translateY(100%);
   transition: transform var(--transition-normal) cubic-bezier(0.25, 0.8, 0.25, 1);
   opacity: 0.98;
+  z-index: 1;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .node-card:hover .node-card-overlay {
